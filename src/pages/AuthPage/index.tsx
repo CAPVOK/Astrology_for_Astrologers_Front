@@ -5,7 +5,8 @@ import { Navigate } from "react-router-dom";
 export const AuthPage: FC<IAuthPageProps> = (props) => {
   const { setIsLogin, isLogin } = props;
 
-  if (isLogin) return <Navigate to="/" />;
+  if (isLogin)
+    return <Navigate to={"/"} />;
 
   return (
     <div>

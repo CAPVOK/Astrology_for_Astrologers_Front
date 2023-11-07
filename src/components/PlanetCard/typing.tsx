@@ -1,4 +1,4 @@
 export interface IPlanetCardProps {
-  planetId: string;
+  planetId: number;
   name: string;
 }
