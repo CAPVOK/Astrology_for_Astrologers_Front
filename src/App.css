@@ -1,0 +1,365 @@
+:root {
+  --background: #000000;
+  --accent: #FB2576;
+  --purple: #3F0071;
+  --blue: #150050;
+  --gray: #292929;
+  --gray-light: #858585;
+
+  --default1: #ababab;
+  --default2: #8a8a8a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.div {
+  all: unset;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background);
+  color: white;
+  font-family: "Montserrat";
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url(/fonts/Montserrat-VariableFont_wght.ttf) format('truetype');
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 38px;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 36px;
+}
+
+p {
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 136.023%;
+  font-size: 16px;
+}
+
+.colored {
+  color: var(--accent);
+}
+
+.colored_white {
+  color: white;
+}
+
+.colored_purple {
+  color: var(--purple);
+}
+
+.colored_blue {
+  color: var(--blue);
+}
+
+.colored_gray {
+  color: var(--gray);
+}
+
+.colored_light_gray {
+  color: var(--gray-light);
+}
+
+.bg_colored {
+  background-color: var(--accent);
+}
+
+.bg_colored_white {
+  background-color: white;
+}
+
+.bg_colored_purple {
+  background-color: var(--purple);
+}
+
+.bg_colored_blue {
+  background-color: var(--blue);
+}
+
+.bg_colored_gray {
+  background-color: var(--gray);
+}
+
+.bg_colored_light_gray {
+  background-color: var(--gray-light);
+}
+
+/* a:focus,
+button:focus,
+input[type="button"]:focus {
+  outline: 2px solid var(--purple);
+}
+
+a,
+a:link,
+a:visited,
+a:hover {
+  text-decoration: none;
+} */
+
+button {
+  border: none;
+  outline: none;
+}
+
+a {
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+  line-height: 136.023%;
+  font-size: 16px;
+  text-decoration: none;
+  position: relative;
+}
+
+a,
+a:link,
+a:visited,
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+  line-height: 136.023%;
+  font-size: 16px;
+  text-decoration: none;
+  position: relative;
+}
+
+/* Reset and base styles  */
+* {
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+aside,
+nav,
+footer,
+header,
+section,
+main {
+  display: block;
+}
+
+ul,
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+address {
+  font-style: normal;
+}
+
+/* Form */
+input,
+textarea,
+button,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button,
+input[type="submit"] {
+  display: inline-block;
+  box-shadow: none;
+  background-color: transparent;
+  background: none;
+  cursor: pointer;
+}
+
+input:focus,
+input:active,
+button:focus,
+button:active {
+  outline: none;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+label {
+  cursor: pointer;
+}
+
+legend {
+  display: block;
+}
+
+@media (max-width: 576px) {
+
+  p,
+  a,
+  input,
+  label {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+
+  p,
+  a,
+  input,
+  label {
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  h4 {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+
+  p,
+  a,
+  input,
+  label {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 45px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+
+  p,
+  a,
+  input,
+  label {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  h4 {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  p,
+  a,
+  input,
+  label {
+    font-size: 20px;
+  }
+
+  h1 {
+    font-size: 60px;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  h3 {
+    font-size: 26px;
+  }
+
+  h4 {
+    font-size: 24px;
+  }
+}

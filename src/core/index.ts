@@ -3,7 +3,16 @@ import { IRequestOptions } from "./typing";
 export const BASE_URL = "http://localhost:8080";
 
 export const sendRequest = async (options: IRequestOptions) => {
-  const { method, path, headers = {}, data /* , isAuth = false */ } = options;
+  const {
+    method,
+    path,
+    headers = {},
+    params = undefined,
+    data /* , isAuth = false */,
+  } = options;
+
+  const url = new URL(`${BASE_URL}${path}`);
+
   /* 
   const accessToken = await getCurrentAccessToken();
   console.log("CurrentAccessToken", accessToken); */
@@ -17,13 +26,17 @@ export const sendRequest = async (options: IRequestOptions) => {
     body: data ? JSON.stringify(data) : undefined,
   };
 
-  try {
-    const response = await fetch(`${BASE_URL}${path}`, requestOptions);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  } catch (error) {
-    throw error;
+  if (params) {
+    Object.keys(params).forEach((key) => {
+      url.searchParams.append(key, params[key]);
+    });
   }
+
+  const response = await fetch(url.toString(), requestOptions);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  return response.json();
 };

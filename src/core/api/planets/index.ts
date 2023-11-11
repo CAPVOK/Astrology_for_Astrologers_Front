@@ -1,11 +1,12 @@
 import { sendRequest } from "../..";
 import { IGetPlanetsResponse, IGetPlanetByIdResponse } from "./typing";
 
-export const getPlanets = async () => {
+export const getPlanets = async (serachName?: string) => {
   try {
     const response: IGetPlanetsResponse = await sendRequest({
       method: "GET",
       path: "/planet",
+      params: serachName ? { searchByName: serachName } : undefined,
     });
     return response;
   } catch (error) {

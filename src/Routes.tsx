@@ -1,21 +1,23 @@
 import { RouteObject, useRoutes } from "react-router-dom";
 import {
+  AuthPage,
   BasketPage,
   MainPage,
   NotFoundPage,
   PlanetPage,
 } from "./pages";
+import { PrivatePages } from "./components";
+import { IGlobalProps } from "./App.typing";
 
-export const AppRoutes = () => {
-  /* const routes: RouteObject[] = [
+export const AppRoutes = (props: IGlobalProps) => {
+  const routes: RouteObject[] = [
     {
       path: "/",
       element: <PrivatePages {...props} />,
       children: [
         {
           path: "",
-          index: true,
-          element: <MainPage />,
+          element: <MainPage {...props}/>,
         },
         {
           path: "planet/:id",
@@ -35,28 +37,44 @@ export const AppRoutes = () => {
       path: "*",
       element: <NotFoundPage />,
     },
-  ]; */
+  ];
 
-  const routes: RouteObject[] = [
+  /* const routes: RouteObject[] = [
     {
       path: "/",
       index: true,
-      element: <MainPage />,
+      element: (
+        <PrivatePage {...props}>
+          <MainPage {...props}/>
+        </PrivatePage>
+      ),
     },
     {
       path: "/planet/:id",
-      element: <PlanetPage />,
+      element: (
+        <PrivatePage {...props}>
+          <PlanetPage />
+        </PrivatePage>
+      ),
     },
     {
       path: "/basket",
-      element: <BasketPage />,
+      element: (
+        <PrivatePage {...props}>
+          <BasketPage />
+        </PrivatePage>
+      ),
+    },
+    {
+      path: "/auth",
+      element: <AuthPage {...props} />,
     },
     {
       path: "*",
       element: <NotFoundPage />,
     },
-  ];
-  
+  ]; */
+
   const routeResult = useRoutes(routes);
 
   return <>{routeResult}</>;

@@ -1,0 +1,140 @@
+.intro {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, var(--gray), transparent);
+  margin: auto;
+  width: 60%;
+  max-width: 700px;
+  text-align: center;
+  display: flex;
+  gap: 40px;
+  flex-direction: column;
+  padding-top: 100px;
+}
+
+.intro h1 {
+  margin-inline: 30px;
+}
+
+.intro .text {
+  text-align: left;
+  padding-inline: 70px;
+  color: var(--gray-light);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.choose_planet {
+  margin-inline: 40px;
+  margin-block: 40px;
+  text-align: center;
+}
+
+.planets {
+  width: 90%;
+  margin: auto;
+
+  display: grid;
+  grid-template-rows: repeat(auto-fit, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  min-height: 60px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+}
+
+.input {
+  border-radius: 0;
+  border: none;
+  color: var(--gray-light);
+  border-bottom: 2px solid var(--gray-light);
+}
+.input-colot {
+  color: var(--gray-light);
+}
+input:active, input:hover, input:focus {
+  border: none;
+  border-bottom: 2px solid var(--gray-light);
+  box-shadow: none;
+  outline: none;
+}
+.form-control:focus {
+  border: none;
+  border-bottom: 2px solid var(--gray-light);
+  box-shadow: none;
+  outline: none;
+}
+
+.button {
+  padding: 5px 8px;
+  border: 1px solid var(--accent);
+  text-align: center;
+  width: fit-content;
+  color: var(--gray-light);
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.button:hover {
+  color: white;
+  outline: none;
+  border: 1px solid var(--accent);
+  outline-color: transparent;
+}
+
+.button:active {
+  outline: none;
+  outline-color: transparent;
+  color: white;
+  outline: none;
+  border: 1px solid var(--accent);
+}
+
+.btn:first-child:active {
+  box-shadow: none;
+  border-color: var(--accent);
+}
+
+@media (min-width: 1200px) {}
+
+@media (max-width: 1200px) {}
+
+@media (max-width: 992px) {
+  .intro {
+    width: 70%;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .planets {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+
+  .intro {
+    width: 80%;
+  }
+
+  .menu {
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .intro {
+    width: 90%;
+  }
+}

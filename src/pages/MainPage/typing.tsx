@@ -1,1 +1,5 @@
-export interface IMainPageProps {}
+import { IGlobalProps } from "../../App.typing";
+
+export interface IMainPageProps extends IGlobalProps{
+  
+}

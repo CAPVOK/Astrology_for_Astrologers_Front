@@ -1,29 +1,35 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IGlobalProps } from "../App.typing";
 
+const AUTH_KEY = "astrology_auth_key";
+
 export const useGlobalProps = () => {
-  const [isAuth, setIsAuth] = useState(false);
+  const currentAuth = localStorage.getItem(AUTH_KEY);
 
-  useEffect(() => {
-    const auth = localStorage.getItem("auth");
-    setIsAuth(auth ? true : false);
-  }, []);
+  const [isAuth, setIsAuth] = useState(!!currentAuth);
 
-  const getIsLoggin = () => {
-    const auth = localStorage.getItem("auth");
-    setIsAuth(auth ? true : false);
-    return auth ? true : false
-  }
+  const useAuth = () => {
+    const auth = localStorage.getItem(AUTH_KEY);
+    const loginStatus = !!auth;
+    setIsAuth(loginStatus);
+    return loginStatus;
+  };
 
-  const setIsLogin = (state: boolean) => {
-    setIsAuth(state);
-    localStorage.setItem("auth", state ? "true" : "");
+  const logout = () => {
+    setIsAuth(false);
+    localStorage.removeItem(AUTH_KEY);
+  };
+
+  const login = () => {
+    setIsAuth(true);
+    localStorage.setItem(AUTH_KEY, "true");
   };
 
   const globalProps: IGlobalProps = {
     isLogin: isAuth,
-    setIsLogin: setIsLogin,
-    getIsLoggin: getIsLoggin,
+    logout: logout,
+    login: login,
+    useAuth: useAuth,
   };
 
   return globalProps;

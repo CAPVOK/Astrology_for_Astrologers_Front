@@ -3,15 +3,17 @@ import { IAuthPageProps } from "./typing";
 import { Navigate } from "react-router-dom";
 
 export const AuthPage: FC<IAuthPageProps> = (props) => {
-  const { setIsLogin, isLogin } = props;
+  const { login, isLogin } = props;
+  /* 
+  const location = useLocation();
+  console.log(location); */
 
-  if (isLogin)
-    return <Navigate to={"/"} />;
+  if (isLogin) return <Navigate to={"/"} replace={true} />;
 
   return (
     <div>
       AuthPage
-      <button onClick={() => setIsLogin(true)}>LOGIN</button>
+      <button onClick={login}>LOGIN</button>
     </div>
   );
 };
