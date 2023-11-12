@@ -22,7 +22,9 @@ export const PlanetPage: FC<IPlanetPageProps> = () => {
           setPlanetData(data.planet);
         })
         .catch(() => {
-          const planet = PLANETS.planets.find((planet) => planet.Id === Number(id));
+          const planet = PLANETS.planets.find(
+            (planet) => planet.Id === Number(id)
+          );
           setPlanetData(planet || null);
         });
     }
@@ -42,7 +44,11 @@ export const PlanetPage: FC<IPlanetPageProps> = () => {
   return (
     <>
       <Container className="div planet_page">
-        <Breadcrumps location={location} name={planetData?.Name} />
+        <Breadcrumps
+          location={location}
+          name={planetData?.Name}
+          isAbsolute={true}
+        />
         <div className="content">
           <div className="blog">
             <div className="decoration_block"></div>

@@ -5,4 +5,6 @@ export interface IBreadcrumps {
   name?: string;
   isCloseButton?: boolean;
   isFixed?: boolean;
+  isAbsolute?: boolean;
+  isBlur?: boolean;
 }

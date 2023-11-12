@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "Astrology_for_Astrologers_Front",
+  base: "/Astrology_for_Astrologers_Front/",
   plugins: [react()],
   server: {
     proxy: {

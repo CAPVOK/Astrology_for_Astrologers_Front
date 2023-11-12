@@ -25,7 +25,7 @@ export const Navbar: FC = () => {
             className="outline-none"
           />
           <NavbarComp.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto gap-3">
+            <Nav className="me-auto gap-4 gap-sm-3">
               <NavLink to="/" className="text-white">
                 Главная
               </NavLink>

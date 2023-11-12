@@ -4,6 +4,16 @@
   top: 0;
 }
 
+.nav_planet_absolute {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.nav_planet_blur {
+  /* backdrop-filter: blur(0.5); */
+}
+
 .nav_planet {
   height: 80px;
   display: flex;
