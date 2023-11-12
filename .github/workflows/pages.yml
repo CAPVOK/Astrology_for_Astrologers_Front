@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        run: |
+          git config --global user.email "capvok@yandex.ru"
+          git config --global user.name "CAPVOK"
+          git clone --branch=gh-pages --single-branch https://github.com/${{ github.repository }}.git gh-pages
+          cp -r dist/* gh-pages/
+          cd gh-pages
+          git add .
+          git commit -m "Deploy to GitHub Pages"
+          git push origin gh-pages
