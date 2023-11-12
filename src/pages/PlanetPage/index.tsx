@@ -1,10 +1,12 @@
 import "./PlanetPage.css";
 import { FC, useEffect, useState } from "react";
 import { IPlanetPageProps } from "./typing";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { getPlanetById } from "../../core/api/planets";
 import { IPlanet } from "../../core/api/planets/typing";
-import { Breadcrumb, CloseButton, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import { planets as PLANETS } from "../../core/moc/planets";
+import { Breadcrumps } from "../../components";
 
 export const PlanetPage: FC<IPlanetPageProps> = () => {
   const { id } = useParams();
@@ -12,39 +14,24 @@ export const PlanetPage: FC<IPlanetPageProps> = () => {
   const [planetData, setPlanetData] = useState<IPlanet | null>(null);
 
   const location = useLocation();
-  console.log(`${location.state?.from ? "#" + location.state?.from : ""}`);
 
   useEffect(() => {
     if (id) {
-      getPlanetById(id).then((data) => {
-        setPlanetData(data.planet);
-      });
+      getPlanetById(id)
+        .then((data) => {
+          setPlanetData(data.planet);
+        })
+        .catch(() => {
+          const planet = PLANETS.planets.find((planet) => planet.Id === Number(id));
+          setPlanetData(planet || null);
+        });
     }
   }, [id]);
 
   if (!planetData || !planetData.Name) {
     return (
       <>
-        <div className="nav_planet">
-          <Link
-            to={`/${location.state?.from ? "#" + location.state?.from : ""}`}
-          >
-            <CloseButton variant="white" />
-          </Link>
-          <Breadcrumb>
-            <Breadcrumb.Item
-              href={`/${
-                location.state?.from ? "#" + location.state?.from : ""
-              }`}
-              className="text-white"
-            >
-              Главная
-            </Breadcrumb.Item>
-            <Breadcrumb.Item active className="text-white">
-              {planetData?.Name}
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        </div>
+        <Breadcrumps location={location} />
         <Container className="d-flex mt-5 h-100 justify-content-center">
           <h1>Загрузка</h1>
         </Container>
@@ -55,26 +42,7 @@ export const PlanetPage: FC<IPlanetPageProps> = () => {
   return (
     <>
       <Container className="div planet_page">
-        <div className="nav_planet">
-          <Link
-            to={`/${location.state?.from ? "#" + location.state?.from : ""}`}
-          >
-            <CloseButton variant="white" />
-          </Link>
-          <Breadcrumb>
-            <Breadcrumb.Item
-              href={`/${
-                location.state?.from ? "#" + location.state?.from : ""
-              }`}
-              className="text-white"
-            >
-              Главная
-            </Breadcrumb.Item>
-            <Breadcrumb.Item active className="text-white">
-              {planetData?.Name}
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        </div>
+        <Breadcrumps location={location} name={planetData?.Name} />
         <div className="content">
           <div className="blog">
             <div className="decoration_block"></div>
@@ -96,7 +64,11 @@ export const PlanetPage: FC<IPlanetPageProps> = () => {
             </div>
           </div>
           <div className="image">
-            <img src={planetData?.ImageName} alt={planetData?.Name} />
+            {planetData.ImageName && planetData.ImageName !== "unknown.png" ? (
+              <img src={planetData.ImageName} alt={planetData.Name}></img>
+            ) : (
+              <img src={"/images/unknown.png"} alt={planetData.Name}></img>
+            )}
           </div>
         </div>
       </Container>

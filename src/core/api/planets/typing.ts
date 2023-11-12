@@ -7,7 +7,7 @@ export interface IPlanet {
   Color2: string;
   Discovered: string;
   Distance: string;
-  Id: 1;
+  Id: number;
   ImageName: string;
   Info: string;
   Mass: string;

@@ -12,6 +12,7 @@ export const sendRequest = async (options: IRequestOptions) => {
   } = options;
 
   const url = new URL(`${BASE_URL}${path}`);
+  /* let url = BASE_URL + path; */
 
   /* 
   const accessToken = await getCurrentAccessToken();
@@ -29,6 +30,7 @@ export const sendRequest = async (options: IRequestOptions) => {
   if (params) {
     Object.keys(params).forEach((key) => {
       url.searchParams.append(key, params[key]);
+      /* url = url + "?" + key + "=" + params[key]; */
     });
   }
 

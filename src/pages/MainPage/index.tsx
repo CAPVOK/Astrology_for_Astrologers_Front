@@ -68,9 +68,9 @@ export const MainPage: FC<IMainPageProps> = () => {
         </Button>
       </Container>
 
-      <Container className="div planets" id="planets">
-        {planets && !!planets.length ? (
-          planets.map((planet, index) => {
+      {planets && !!planets.length ? (
+        <Container className="div planets" id="planets">
+          {planets.map((planet, index) => {
             const props: IPlanetCardProps = {
               id: planet.Id,
               name: planet.Name,
@@ -79,13 +79,13 @@ export const MainPage: FC<IMainPageProps> = () => {
               imageName: planet.ImageName,
             };
             return <PlanetCard key={index} {...props} />;
-          })
-        ) : (
-          <Container className="d-flex justify-content-center mt-4 mb-5">
-            <h2>Ничего не найдено</h2>
-          </Container>
-        )}
-      </Container>
+          })}
+        </Container>
+      ) : (
+        <Container className="d-flex justify-content-center mt-4 mb-5">
+          <h2>Ничего не найдено</h2>
+        </Container>
+      )}
     </Container>
   );
 };

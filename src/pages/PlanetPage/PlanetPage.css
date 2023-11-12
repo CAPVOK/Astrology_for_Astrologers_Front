@@ -1,27 +1,7 @@
-.nav_planet {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  padding-left: 5%;
-  z-index: 10;
-}
-
-.back_button {
-  height: 50px;
-  width: 50px;
-  display: flex;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  z-index: 11;
-}
 .planet_page {
   height: 100vh;
 }
+
 .planet_page .content {
   height: 100%;
   width: 100%;
@@ -46,6 +26,7 @@
   width: 100%;
   background: linear-gradient(to bottom, var(--gray), transparent);
 }
+
 .planet_page .decoration_block::before {
   position: absolute;
   top: 0;
@@ -55,6 +36,7 @@
   width: 2px;
   background: linear-gradient(to bottom, var(--gray-light), transparent);
 }
+
 .planet_page .decoration_block::after {
   position: absolute;
   top: 0;
@@ -71,10 +53,12 @@
   flex-direction: column;
   gap: 30px;
 }
-.planet_page .about p{
+
+.planet_page .about p {
   color: var(--gray-light);
 }
-.planet_page .about > h1 {
+
+.planet_page .about>h1 {
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
@@ -83,9 +67,11 @@
   flex-direction: column;
   gap: 10px;
 }
+
 .planet_page .info p {
   margin-left: 20px;
 }
+
 .planet_page .info h3 {
   color: var(--accent);
 }
@@ -103,16 +89,20 @@
   .planet_page {
     height: 100%;
   }
+
   .planet_page .content {
     flex-direction: column;
   }
+
   .planet_page .about {
     margin-block: 90px 100px;
   }
+
   .planet_page .blog {
     margin-left: 0;
     padding-inline: 15px;
   }
+
   .nav_planet {
     padding-left: 20px;
   }

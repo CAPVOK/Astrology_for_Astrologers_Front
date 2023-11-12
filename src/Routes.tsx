@@ -1,5 +1,6 @@
 import { RouteObject, useRoutes } from "react-router-dom";
 import {
+  AboutPage,
   AuthPage,
   BasketPage,
   MainPage,
@@ -17,7 +18,7 @@ export const AppRoutes = (props: IGlobalProps) => {
       children: [
         {
           path: "",
-          element: <MainPage {...props}/>,
+          element: <MainPage {...props} />,
         },
         {
           path: "planet/:id",
@@ -26,6 +27,10 @@ export const AppRoutes = (props: IGlobalProps) => {
         {
           path: "basket",
           element: <BasketPage />,
+        },
+        {
+          path: "about",
+          element: <AboutPage />,
         },
       ],
     },
@@ -38,42 +43,6 @@ export const AppRoutes = (props: IGlobalProps) => {
       element: <NotFoundPage />,
     },
   ];
-
-  /* const routes: RouteObject[] = [
-    {
-      path: "/",
-      index: true,
-      element: (
-        <PrivatePage {...props}>
-          <MainPage {...props}/>
-        </PrivatePage>
-      ),
-    },
-    {
-      path: "/planet/:id",
-      element: (
-        <PrivatePage {...props}>
-          <PlanetPage />
-        </PrivatePage>
-      ),
-    },
-    {
-      path: "/basket",
-      element: (
-        <PrivatePage {...props}>
-          <BasketPage />
-        </PrivatePage>
-      ),
-    },
-    {
-      path: "/auth",
-      element: <AuthPage {...props} />,
-    },
-    {
-      path: "*",
-      element: <NotFoundPage />,
-    },
-  ]; */
 
   const routeResult = useRoutes(routes);
 

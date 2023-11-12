@@ -1,0 +1,136 @@
+
+.planet {
+  position: relative;
+  height: 100%;
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.planet .circle {
+  position: relative;
+  height: 90%;
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  background-color: var(--default1);
+  border-radius: 1000px;
+  overflow: hidden;
+  transform: rotate(-20deg);
+}
+
+.planet::before {
+  content: "";
+  position: absolute;
+  height: 110%;
+  aspect-ratio: 1;
+  border-radius: 1000px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--default1);
+  opacity: 0.2;
+  z-index: -1;
+  transition: 0.4s;
+}
+
+.planet::after {
+  content: "";
+  position: absolute;
+  height: 130%;
+  aspect-ratio: 1;
+  border-radius: 1000px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--default1);
+  opacity: 0.4;
+  z-index: -1;
+  transition: 0.5s;
+}
+
+.planet .circle .color_blocks {
+  position: absolute;
+  top: 0;
+  right: -20%;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.planet .circle .color_blocks .block {
+  position: relative;
+  width: 70%;
+  height: 100%;
+  background-color: var(--default2);
+  border-radius: 500px;
+}
+
+.planet .circle .color_blocks .block::after {
+  position: absolute;
+  background-color: inherit;
+  content: "";
+  height: 100%;
+  width: 100%;
+  left: 10%;
+  bottom: -100%;
+  border-radius: 500px;
+  z-index: 4;
+}
+
+.planet .circle .color_blocks .deep {
+  position: relative;
+  background-color: transparent;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+.planet .circle .color_blocks .deep .mini_circle {
+  height: 100%;
+  width: 50px;
+  background-color: var(--default1);
+  border-radius: 500px;
+}
+
+.planet .circle .color_blocks .block:nth-child(1) {
+  width: 100%;
+}
+
+.planet .circle .color_blocks .block:nth-child(2) {
+  width: 90%;
+}
+
+.planet .circle .color_blocks .block:nth-child(3) {
+  width: 110%;
+}
+
+.planet .circle .color_blocks .block:nth-child(4) {
+  width: 85%;
+}
+
+.planet .circle .color_blocks .block:nth-child(5) {
+  width: 90%;
+}
+
+.planet .circle .color_blocks .deep:nth-child(2) .mini_circle {
+  width: 35%;
+}
+
+.planet .circle .color_blocks .deep:nth-child(4) .mini_circle {
+  width: 45%;
+}
+
+.planet .circle .color_blocks .deep:nth-child(6) .mini_circle {
+  width: 47%;
+}
+
+.planet .circle .color_blocks .deep:nth-child(8) .mini_circle {
+  width: 50%;
+}

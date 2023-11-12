@@ -1,5 +1,5 @@
 import { sendRequest } from "../..";
-import { IGetPlanetsResponse, IGetPlanetByIdResponse } from "./typing";
+import {  IGetPlanetByIdResponse, IGetPlanetsResponse } from "./typing";
 
 export const getPlanets = async (serachName?: string) => {
   try {
