@@ -41,6 +41,8 @@ export const PlanetPage: FC<IPlanetPageProps> = () => {
     );
   }
 
+  console.log(planetData);
+
   return (
     <>
       <Container className="div planet_page">
@@ -70,10 +72,10 @@ export const PlanetPage: FC<IPlanetPageProps> = () => {
             </div>
           </div>
           <div className="image">
-            {planetData.ImageName && planetData.ImageName !== "unknown.png" ? (
-              <img src={planetData.ImageName} alt={planetData.Name}></img>
+            {!planetData.ImageName || planetData.ImageName === "unknown.png" ? (
+              <img src="/images/unknown.png" alt="" />
             ) : (
-              <img src={"/images/unknown.png"} alt={planetData.Name}></img>
+              <img src={planetData.ImageName} alt={planetData.Name} />
             )}
           </div>
         </div>
