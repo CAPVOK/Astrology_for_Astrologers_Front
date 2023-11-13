@@ -2,11 +2,12 @@ import "./PlanetPage.css";
 import { FC, useEffect, useState } from "react";
 import { IPlanetPageProps } from "./typing";
 import { useLocation, useParams } from "react-router-dom";
+import { Container } from "react-bootstrap";
 import { getPlanetById } from "../../core/api/planets";
 import { IPlanet } from "../../core/api/planets/typing";
-import { Container } from "react-bootstrap";
 import { planets as PLANETS } from "../../core/moc/planets";
 import { Breadcrumps } from "../../components";
+import unknownIage from "/images/unknown.png"
 
 export const PlanetPage: FC<IPlanetPageProps> = () => {
   const { id } = useParams();
@@ -73,7 +74,7 @@ export const PlanetPage: FC<IPlanetPageProps> = () => {
           </div>
           <div className="image">
             {!planetData.ImageName || planetData.ImageName === "unknown.png" ? (
-              <img src="/images/unknown.png" alt="" />
+              <img src={unknownIage} alt="" />
             ) : (
               <img src={planetData.ImageName} alt={planetData.Name} />
             )}
