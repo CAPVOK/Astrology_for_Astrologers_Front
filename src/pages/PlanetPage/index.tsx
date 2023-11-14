@@ -42,8 +42,6 @@ export const PlanetPage: FC<IPlanetPageProps> = () => {
     );
   }
 
-  console.log(planetData);
-
   return (
     <>
       <Container className="div planet_page">
