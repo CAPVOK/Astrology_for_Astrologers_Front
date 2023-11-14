@@ -1,5 +1,5 @@
 import "./App.css";
-import { HashRouter } from "react-router-dom";
+import {  HashRouter } from "react-router-dom";
 import { AppRoutes } from "./Routes";
 import { useGlobalProps } from "./hooks/useGlobalProps";
 

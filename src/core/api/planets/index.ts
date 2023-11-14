@@ -5,7 +5,7 @@ export const getPlanets = async (serachName?: string) => {
   try {
     const response: IGetPlanetsResponse = await sendRequest({
       method: "GET",
-      path: "/planet",
+      path: "/planet/",
       params: serachName ? { searchByName: serachName } : undefined,
     });
     return response;

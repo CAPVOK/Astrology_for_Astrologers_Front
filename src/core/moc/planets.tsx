@@ -14,7 +14,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Меркурий — самая близкая к Солнцу планета в Солнечной системе. Он также известен своей высокой температурой из-за отсутствия атмосферы и быстрого обращения вокруг Солнца.",
       Color1: "#f9fad6",
       Color2: "#d6d5c1",
-      ImageName: "http://localhost:9000/space-images/planets/1/image",
+      ImageName: "",
     },
     {
       Id: 2,
@@ -25,7 +25,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Венера известна своей плотной атмосферой, которая создает парниковый эффект и делает ее самой жаркой планетой в Солнечной системе.",
       Color1: "#ae3837",
       Color2: "#c75050",
-      ImageName: "http://localhost:9000/space-images/planets/2/image",
+      ImageName: "",
     },
     {
       Id: 3,
@@ -36,7 +36,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Земля — третья планета от Солнца и единственная известная планета, на которой существует жизнь.",
       Color1: "#3ebfd3",
       Color2: "#92d210",
-      ImageName: "http://localhost:9000/space-images/planets/3/image",
+      ImageName: "",
     },
     {
       Id: 4,
@@ -47,7 +47,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Марс — планета, на которой были обнаружены следы воды и которая привлекает внимание как потенциальное место для будущих миссий с человеческим экипажем.",
       Color1: "#ed8c70",
       Color2: "#d1704f",
-      ImageName: "http://localhost:9000/space-images/planets/4/image",
+      ImageName: "",
     },
     {
       Id: 5,
@@ -58,7 +58,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Юпитер — самая большая планета в Солнечной системе и известен своими многочисленными спутниками, включая Галилеевы луны.",
       Color1: "#f5cd89",
       Color2: "#b05724",
-      ImageName: "http://localhost:9000/space-images/planets/5/image",
+      ImageName: "",
     },
     {
       Id: 6,
@@ -69,7 +69,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Сатурн — планета, известная своими кольцами, которые состоят из льда и камней.",
       Color1: "#fdc841",
       Color2: "#fedd83",
-      ImageName: "http://localhost:9000/space-images/planets/6/image",
+      ImageName: "",
     },
     {
       Id: 7,
@@ -80,7 +80,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Уран — планета с наклонной осью вращения, что делает ее уникальной среди газовых гигантов.",
       Color1: "#3dbbe2",
       Color2: "#61d3f8",
-      ImageName: "http://localhost:9000/space-images/planets/7/image",
+      ImageName: "",
     },
     {
       Id: 8,
@@ -91,7 +91,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Нептун — самая далекая планета от Солнца в Солнечной системе и известен своими ветрами и температурой атмосферы.",
       Color1: "#8cc0f3",
       Color2: "#588ed7",
-      ImageName: "http://localhost:9000/space-images/planets/8/image",
+      ImageName: "",
     },
     {
       Id: 9,
@@ -102,7 +102,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Плутон - карликовая планета с малой массой и эксцентричной орбитой, покрытая метановыми и азотными морями. Его атмосфера содержит метан и азот.",
       Color1: "#d2831e",
       Color2: "#e7982e",
-      ImageName: "http://localhost:9000/space-images/planets/9/image",
+      ImageName: "",
     },
     {
       Id: 10,
@@ -113,7 +113,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Экзопланета HD 209458 b — одна из первых экзопланет, обнаруженных в 1999 году. Она находится в созвездии Пегас и известна своими высокими температурами и атмосферой, состоящей из горячего водяного пара и гелия.",
       Color1: "#ffcb58",
       Color2: "#ffad29",
-      ImageName: "http://localhost:9000/space-images/planets/10/image",
+      ImageName: "",
     },
     {
       Id: 11,
@@ -124,7 +124,7 @@ export const planets: IGetPlanetsResponse = {
       Info: "Трепанация-7 — экзопланета, обладающая необычными характеристиками. Ее происхождение и состав остаются загадкой для ученых. Научные исследования этой планеты продолжаются.",
       Color1: "#b3b3b3",
       Color2: "#999999",
-      ImageName: "http://localhost:9000/space-images/planets/11/image",
+      ImageName: "",
     },
     {
       Id: 13,
