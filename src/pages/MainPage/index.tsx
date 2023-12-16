@@ -1,12 +1,11 @@
 import "./MainPage.css";
 import { FC } from "react";
-import { IMainPageProps } from "./typing";
 import { Navbar, PlanetCard } from "../../components";
 import { IPlanetCardProps } from "../../components/PlanetCard/typing";
 import { useMainPage } from "./useMainPage";
 import { Button, Container } from "react-bootstrap";
 
-export const MainPage: FC<IMainPageProps> = () => {
+export const MainPage: FC = () => {
   const {
     planets,
     handleSearchPlanetsClick,

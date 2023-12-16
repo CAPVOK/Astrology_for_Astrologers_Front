@@ -1,15 +1,15 @@
 import { FC } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { IPrivatePagesProps } from "./typing";
+import { useSelector } from "../../core/store";
+import { selectUser } from "../../core/store/slices/selectors";
 
 export const PrivatePages: FC<IPrivatePagesProps> = (props) => {
-  const { isLogin, children } = props;
-/* 
-  const location = useLocation();
-  console.log(location);
-  console.log(isLogin); */
+  const { children } = props;
 
-  if (!isLogin)
+  const { isAuth } = useSelector(selectUser);
+
+  if (!isAuth)
     return (
       <Navigate
         to="/auth"

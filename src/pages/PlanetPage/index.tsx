@@ -1,6 +1,5 @@
 import "./PlanetPage.css";
 import { FC, useEffect, useState } from "react";
-import { IPlanetPageProps } from "./typing";
 import { useLocation, useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { getPlanetById } from "../../core/api/planets";
@@ -9,7 +8,7 @@ import { planets as PLANETS } from "../../core/moc/planets";
 import { Breadcrumps } from "../../components";
 import unknownIage from "/images/unknown.png"
 
-export const PlanetPage: FC<IPlanetPageProps> = () => {
+export const PlanetPage: FC = () => {
   const { id } = useParams();
 
   const [planetData, setPlanetData] = useState<IPlanet | null>(null);

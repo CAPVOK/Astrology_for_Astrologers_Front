@@ -8,17 +8,16 @@ import {
   PlanetPage,
 } from "./pages";
 import { PrivatePages } from "./components";
-import { IGlobalProps } from "./App.typing";
 
-export const AppRoutes = (props: IGlobalProps) => {
+export const AppRoutes = () => {
   const routes: RouteObject[] = [
     {
       path: "/",
-      element: <PrivatePages {...props} />,
+      element: <PrivatePages />,
       children: [
         {
           path: "",
-          element: <MainPage {...props} />,
+          element: <MainPage />,
         },
         {
           path: "planet/:id",
@@ -36,7 +35,7 @@ export const AppRoutes = (props: IGlobalProps) => {
     },
     {
       path: "/auth",
-      element: <AuthPage {...props} />,
+      element: <AuthPage />,
     },
     {
       path: "*",

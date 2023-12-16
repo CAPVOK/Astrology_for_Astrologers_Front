@@ -1,8 +1,6 @@
 import { FC } from "react";
-import { IBasketPageProps } from "./typing";
 
-
-export const BasketPage: FC<IBasketPageProps> = () => {
+export const BasketPage: FC = () => {
 
   return (
     <div>

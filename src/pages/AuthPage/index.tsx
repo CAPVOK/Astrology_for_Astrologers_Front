@@ -1,19 +1,18 @@
 import { FC } from "react";
-import { IAuthPageProps } from "./typing";
 import { Navigate } from "react-router-dom";
+import { store, useSelector } from "../../core/store";
+import { selectUser } from "../../core/store/slices/selectors";
+import { saveUser } from "../../core/store/slices/userSlice";
 
-export const AuthPage: FC<IAuthPageProps> = (props) => {
-  const { login, isLogin } = props;
-  /* 
-  const location = useLocation();
-  console.log(location); */
+export const AuthPage: FC = () => {
+  const { isAuth } = useSelector(selectUser);
 
-  if (isLogin) return <Navigate to={"/"} replace={true} />;
+  if (isAuth) return <Navigate to={"/"} replace={true} />;
 
   return (
     <div>
       AuthPage
-      <button onClick={login}>LOGIN</button>
+      <button onClick={() => store.dispatch(saveUser("Arina"))}>LOGIN</button>
     </div>
   );
 };

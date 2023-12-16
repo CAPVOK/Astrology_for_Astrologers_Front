@@ -1,15 +1,15 @@
 import "./App.css";
-import {  HashRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import { AppRoutes } from "./Routes";
-import { useGlobalProps } from "./hooks/useGlobalProps";
+import { store } from "./core/store";
 
 function App() {
-
-  const globalProps = useGlobalProps();
-
   return (
     <HashRouter>
-      <AppRoutes {...globalProps} />
+      <Provider store={store}>
+        <AppRoutes />
+      </Provider>
     </HashRouter>
   );
 }
