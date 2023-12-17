@@ -33,9 +33,13 @@ export const Breadcrumps: FC<IBreadcrumps> = (props) => {
       )}
       <div className="breadcrumbs">
         <ul>
-          <li><Link to={"/"}>Главная</Link></li>
+          <li>
+            <Link to={"/"}>Главная</Link>
+          </li>
           <div>/</div>
-          <li>{name}</li>
+          <li className="current">
+            <p>{name}</p>
+          </li>
         </ul>
       </div>
     </div>

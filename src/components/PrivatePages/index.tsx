@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { IPrivatePagesProps } from "./typing";
 import { useSelector } from "../../core/store";
 import { selectUser } from "../../core/store/slices/selectors";
@@ -7,16 +8,22 @@ import { selectUser } from "../../core/store/slices/selectors";
 export const PrivatePages: FC<IPrivatePagesProps> = (props) => {
   const { children } = props;
 
-  const { isAuth } = useSelector(selectUser);
+  const { isAuth, constellation } = useSelector(selectUser);
 
-  if (!isAuth)
+  const location = useLocation();
+
+  if (location.pathname === "/constellation" && !constellation) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (!isAuth) {
     return (
       <Navigate
         to="/auth"
-        /* state={{ from: location.pathname, prev: location.state?.from?.pathname }} */
-        replace
+        state={{
+          from: location.pathname,
+        }}
       />
     );
-
-  return children ? children : <Outlet />;
+  } else return children ? children : <Outlet />;
 };

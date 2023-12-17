@@ -5,8 +5,12 @@ import Nav from "react-bootstrap/Nav";
 import NavbarComp from "react-bootstrap/Navbar";
 import { PlanetIcon } from "../icons";
 import { Link, NavLink } from "react-router-dom";
+import { useSelector } from "../../core/store";
+import { selectUser } from "../../core/store/slices/selectors";
 
 export const Navbar: FC = () => {
+  const { constellation } = useSelector(selectUser);
+
   return (
     <>
       <NavbarComp
@@ -26,15 +30,42 @@ export const Navbar: FC = () => {
           />
           <NavbarComp.Collapse id="basic-navbar-nav">
             <Nav className="me-auto gap-4 gap-sm-3">
-              <NavLink to="/" className="text-white">
+              <NavLink
+                to="/"
+                className="text-white"
+                style={{ display: "flex", alignItems: "center" }}
+              >
                 Главная
               </NavLink>
-              <NavLink to="/about" className="text-white">
+              <NavLink
+                to="/about"
+                className="text-white"
+                style={{ display: "flex", alignItems: "center" }}
+              >
                 О нас
               </NavLink>
-              <NavLink to="/basket" className="text-secondary">
-                Созвездие
-              </NavLink>
+              {constellation ? (
+                <NavLink
+                  to="/constellation"
+                  className="text-white"
+                  state={{ from: location.pathname }}
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  Созвездие
+                </NavLink>
+              ) : (
+                <p
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    margin: "0",
+                  }}
+                  className="text-secondary"
+                >
+                  Созвездие
+                </p>
+              )}
             </Nav>
           </NavbarComp.Collapse>
         </Container>

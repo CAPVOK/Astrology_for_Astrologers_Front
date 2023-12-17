@@ -2,7 +2,7 @@ import { RouteObject, useRoutes } from "react-router-dom";
 import {
   AboutPage,
   AuthPage,
-  BasketPage,
+  ConstellationPage,
   MainPage,
   NotFoundPage,
   PlanetPage,
@@ -12,26 +12,26 @@ import { PrivatePages } from "./components";
 export const AppRoutes = () => {
   const routes: RouteObject[] = [
     {
-      path: "/",
       element: <PrivatePages />,
       children: [
         {
-          path: "",
-          element: <MainPage />,
-        },
-        {
-          path: "planet/:id",
-          element: <PlanetPage />,
-        },
-        {
-          path: "basket",
-          element: <BasketPage />,
-        },
-        {
-          path: "about",
-          element: <AboutPage />,
+          path: "/constellation",
+          element: <ConstellationPage />,
         },
       ],
+    },
+    {
+      path: "/",
+      index: true,
+      element: <MainPage />,
+    },
+    {
+      path: "/planet/:id",
+      element: <PlanetPage />,
+    },
+    {
+      path: "/about",
+      element: <AboutPage />,
     },
     {
       path: "/auth",

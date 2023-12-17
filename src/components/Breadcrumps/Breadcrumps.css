@@ -43,3 +43,8 @@
   color: white;
   transition: 0.3s;
 }
+
+.nav_planet .breadcrumbs li.current p {
+  color: white;
+  margin: 0;
+}

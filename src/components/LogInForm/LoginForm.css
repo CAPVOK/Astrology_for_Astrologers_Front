@@ -1,0 +1,93 @@
+.login_form {
+  position: relative;
+  width: 50%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login_form * {
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+}
+
+.login_form::placeholder {
+  color: var(--gray);
+}
+
+.login_form button {
+  align-self: center;
+  margin-top: 50px;
+  width: fit-content;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.login_form button p {
+  font-weight: bold;
+}
+
+.login_form button:hover {
+  scale: 1.1;
+}
+
+.login_form button:active {
+  scale: 1.08;
+}
+
+.login_form p {
+  text-align: center;
+}
+
+.login_form h3 {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+
+.login_form label {
+  display: block;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.login_form input {
+  display: block;
+  height: 50px;
+  width: 100%;
+  background-color: var(--gray);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 8px;
+
+
+}
+
+.login_form input:hover,
+.login_form input:active,
+.login_form input:focus {
+  border-bottom: none;
+}
+.login_form-send{
+  color: var(--gray-light);
+}
+.login_form-send.active {
+  transition: 0.5s;
+  color: var(--accent);
+}
+
+.login_form-message {
+  color: var(--error);
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+}
+
+@media (max-width: 500px) {
+  .login_form {
+    width: 80%;
+  }
+}
