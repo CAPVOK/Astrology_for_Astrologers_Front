@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "/Astrology_for_Astrologers_Front/",
   plugins: [react()],
-  server: {
+  /* server: {
     proxy: {
       "/api": {
         target: "http://localhost:8080",
@@ -13,5 +13,5 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
-  },
+  }, */
 });
