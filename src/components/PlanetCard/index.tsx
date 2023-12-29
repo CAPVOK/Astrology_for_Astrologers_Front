@@ -5,7 +5,31 @@ import { Link } from "react-router-dom";
 import { Planet } from "../Planet";
 
 export const PlanetCard: FC<IPlanetCardProps> = (props) => {
-  const { id, color1, color2, name } = props;
+  const { id, color1, color2, name, isAuth } = props;
+
+  const isAddActive = true;
+
+  const handleCardClick = () => {};
+
+  if (isAuth) {
+    return (
+      <div id={name} className="card">
+        <Planet color1={color1} color2={color2} />
+        <div className="content">
+          <h3>{name}</h3>
+          <Link to={"/planet/" + id} state={{ from: name }}>
+            Подробнее
+          </Link>
+          <button
+            className={isAddActive ? "add_button active" : "add_button"}
+            onClick={handleCardClick}
+          >
+            {isAddActive ? "Добавить" : "В созвездие"}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Link

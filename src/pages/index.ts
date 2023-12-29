@@ -4,6 +4,7 @@ import { AuthPage } from "./AuthPage";
 import { ConstellationPage } from "./ConstellationPage";
 import { NotFoundPage } from "./NotFoundPage";
 import { AboutPage } from "./AboutPage";
+import { HistoryPage } from "./HistoryPage";
 
 export {
   MainPage,
@@ -12,4 +13,5 @@ export {
   ConstellationPage,
   NotFoundPage,
   AboutPage,
+  HistoryPage,
 };

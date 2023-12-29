@@ -4,8 +4,11 @@ import { ChangeEvent } from "../../App.typing";
 import { loginUser, registerUser } from "../../core/api/auth";
 import { IUserAuthData } from "../../core/api/auth/typing";
 import { useDispatch, useSelector } from "../../core/store";
-import { selectLoginMessage } from "../../core/store/slices/selectors";
-import { saveLoginMessage } from "../../core/store/slices/userSlice";
+import { selectApp } from "../../core/store/slices/selectors";
+import {
+  addNotification,
+  saveLoginMessage,
+} from "../../core/store/slices/appSlice";
 
 interface ILogInFormProps {
   isLoginPage: boolean;
@@ -16,10 +19,10 @@ export const LogInForm: FC<ILogInFormProps> = (props) => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState<IUserAuthData>({
-    login: "",
+    email: "",
     password: "",
   });
-  const message = useSelector(selectLoginMessage);
+  const { loginMessage: message } = useSelector(selectApp);
   const [isSendActive, setSendActive] = useState(false);
 
   function handleChange(event: ChangeEvent) {
@@ -29,23 +32,36 @@ export const LogInForm: FC<ILogInFormProps> = (props) => {
   }
 
   function clickSignUp() {
-    console.log("click");
-    if (formData.password && formData.login) {
+    if (formData.password && formData.email) {
       if (isLoginPage) {
-        loginUser(formData);
+        loginUser(formData).catch((error) => {
+          dispatch(
+            addNotification({
+              message: error,
+              isError: true,
+            })
+          );
+        });
       } else {
-        registerUser(formData);
+        registerUser(formData).catch((error) =>
+          dispatch(
+            addNotification({
+              message: error,
+              isError: true,
+            })
+          )
+        );
       }
     } else dispatch(saveLoginMessage("Введите все данные"));
   }
 
   useEffect(() => {
     dispatch(saveLoginMessage(""));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoginPage]);
 
   useEffect(() => {
-    if (formData.login && formData.password && !message) {
+    if (formData.email && formData.password && !message) {
       setSendActive(true);
     } else {
       setSendActive(false);
@@ -58,8 +74,8 @@ export const LogInForm: FC<ILogInFormProps> = (props) => {
       <input
         type="text"
         placeholder="capvok"
-        id="login"
-        value={formData.login}
+        id="email"
+        value={formData.email}
         onChange={handleChange}
       />
 

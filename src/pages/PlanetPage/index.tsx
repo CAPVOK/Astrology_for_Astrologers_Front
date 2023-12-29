@@ -4,7 +4,6 @@ import { useLocation, useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { getPlanetById } from "../../core/api/planets";
 import { IPlanet } from "../../core/api/planets/typing";
-import { planets as PLANETS } from "../../core/moc/planets";
 import { Breadcrumps } from "../../components";
 import unknownIage from "/images/unknown.png"
 
@@ -21,12 +20,6 @@ export const PlanetPage: FC = () => {
         .then((data) => {
           setPlanetData(data.planet);
         })
-        .catch(() => {
-          const planet = PLANETS.planets.find(
-            (planet) => planet.Id === Number(id)
-          );
-          setPlanetData(planet || null);
-        });
     }
   }, [id]);
 

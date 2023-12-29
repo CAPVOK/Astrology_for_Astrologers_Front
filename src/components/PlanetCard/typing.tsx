@@ -4,4 +4,5 @@ export interface IPlanetCardProps {
   color1: string;
   color2: string;
   imageName: string;
+  isAuth: boolean;
 }

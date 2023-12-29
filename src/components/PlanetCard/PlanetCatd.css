@@ -35,6 +35,10 @@
   padding-right: 30px;
 }
 
+.card .content .add_button {
+  
+}
+
 @media (max-width: 768px) {
   .card {
     height: 120px;

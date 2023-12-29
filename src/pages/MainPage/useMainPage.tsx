@@ -3,37 +3,41 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { IPlanet } from "../../core/api/planets/typing";
 import { getPlanets } from "../../core/api/planets";
 import { ChangeEvent } from "../../App.typing";
-import { planets as PLANETS } from "../../core/moc/planets";
+import { useDispatch } from "../../core/store";
+import { useSelector } from "react-redux";
+import { selectApp, selectUser } from "../../core/store/slices/selectors";
+import { saveSearchName } from "../../core/store/slices/appSlice";
 
 export const useMainPage = () => {
   const [planets, setPlanets] = useState<IPlanet[]>([]);
-  const [searchName, setSearchName] = useState("");
+  const [isButtonsActive, setButtonsActive] = useState(true);
 
   const location = useLocation();
-  console.log(location);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { searchName } = useSelector(selectApp);
+  const { isAuth } = useSelector(selectUser);
+
   const handleSearchPlanetsClick = () => {
+    setButtonsActive(false);
     getPlanets(searchName)
       .then((data) => {
         setPlanets(data.planets);
-        console.log(data.planets);
+        setButtonsActive(true);
       })
-      .catch(() => {
-        const filteredPlanets = PLANETS.planets.filter((planet) =>
-          planet.Name.toLowerCase().startsWith(searchName.toLowerCase())
-        );
-        setPlanets(filteredPlanets);
-      }); // moc данные
+      .catch(() => setButtonsActive(true));
   };
 
   const handleGetAllPlanetsClick = () => {
+    setButtonsActive(false);
+    dispatch(saveSearchName(""));
     getPlanets()
       .then((data) => {
         setPlanets(data.planets);
-        console.log(data.planets);
+        setButtonsActive(true);
       })
-      .catch(() => setPlanets(PLANETS.planets)); // мок
+      .catch(() => setButtonsActive(true));
   };
 
   function scrollToPlanet() {
@@ -51,16 +55,18 @@ export const useMainPage = () => {
   }
 
   const handleSearchNameChange = (e: ChangeEvent) => {
-    setSearchName(e.target.value);
+    dispatch(saveSearchName(e.target.value));
   };
 
   useEffect(() => {
-    getPlanets()
+    setButtonsActive(false);
+    getPlanets(searchName)
       .then((data) => {
         setPlanets(data.planets);
-        console.log(data.planets);
+        setButtonsActive(true);
       })
-      .catch(() => setPlanets(PLANETS.planets)); // мок
+      .catch(() => setButtonsActive(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -71,6 +77,9 @@ export const useMainPage = () => {
   }, [planets]);
 
   return {
+    isAuth,
+    searchName,
+    isButtonsActive,
     planets,
     handleSearchPlanetsClick,
     handleSearchNameChange,

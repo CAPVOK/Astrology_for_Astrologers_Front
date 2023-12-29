@@ -3,43 +3,54 @@ import {
   AboutPage,
   AuthPage,
   ConstellationPage,
+  HistoryPage,
   MainPage,
   NotFoundPage,
   PlanetPage,
 } from "./pages";
 import { PrivatePages } from "./components";
+import { MainLayout } from "./components/MainLayout";
 
 export const AppRoutes = () => {
   const routes: RouteObject[] = [
     {
-      element: <PrivatePages />,
+      element: <MainLayout />,
       children: [
         {
-          path: "/constellation",
-          element: <ConstellationPage />,
+          element: <PrivatePages />,
+          children: [
+            {
+              path: "/constellation",
+              element: <ConstellationPage />,
+            },
+            {
+              path: "/history",
+              element: <HistoryPage />,
+            },
+          ],
+        },
+        {
+          path: "/",
+          index: true,
+          element: <MainPage />,
+        },
+        {
+          path: "/planet/:id",
+          element: <PlanetPage />,
+        },
+        {
+          path: "/about",
+          element: <AboutPage />,
+        },
+        {
+          path: "/auth",
+          element: <AuthPage />,
+        },
+        {
+          path: "*",
+          element: <NotFoundPage />,
         },
       ],
-    },
-    {
-      path: "/",
-      index: true,
-      element: <MainPage />,
-    },
-    {
-      path: "/planet/:id",
-      element: <PlanetPage />,
-    },
-    {
-      path: "/about",
-      element: <AboutPage />,
-    },
-    {
-      path: "/auth",
-      element: <AuthPage />,
-    },
-    {
-      path: "*",
-      element: <NotFoundPage />,
     },
   ];
 

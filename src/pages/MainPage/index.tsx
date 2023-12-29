@@ -11,6 +11,9 @@ export const MainPage: FC = () => {
     handleSearchPlanetsClick,
     handleSearchNameChange,
     handleGetAllPlanetsClick,
+    searchName,
+    isButtonsActive,
+    isAuth,
   } = useMainPage();
 
   return (
@@ -48,6 +51,7 @@ export const MainPage: FC = () => {
         className="d-flex p-3 flex-sm-row flex-column align-items-center justify-content-center gap-3"
       >
         <Button
+          disabled={!isButtonsActive}
           onClick={handleGetAllPlanetsClick}
           className="bg-transparent button"
         >
@@ -55,11 +59,13 @@ export const MainPage: FC = () => {
         </Button>
         <input
           type="text"
+          value={searchName}
           className="input"
           onChange={handleSearchNameChange}
           placeholder="Введите название"
         />
         <Button
+          disabled={!isButtonsActive}
           onClick={handleSearchPlanetsClick}
           className="bg-transparent button"
         >
@@ -76,6 +82,7 @@ export const MainPage: FC = () => {
               color1: planet.Color1,
               color2: planet.Color2,
               imageName: planet.ImageName,
+              isAuth,
             };
             return <PlanetCard key={index} {...props} />;
           })}
