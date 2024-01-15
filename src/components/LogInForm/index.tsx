@@ -2,13 +2,8 @@ import { FC, useEffect, useState } from "react";
 import "./LoginForm.css";
 import { ChangeEvent } from "../../App.typing";
 import { loginUser, registerUser } from "../../core/api/auth";
-import { IUserAuthData } from "../../core/api/auth/typing";
-import { useDispatch, useSelector } from "../../core/store";
-import { selectApp } from "../../core/store/slices/selectors";
-import {
-  addNotification,
-  saveLoginMessage,
-} from "../../core/store/slices/appSlice";
+import { IUserRegisterData } from "../../core/api/auth/typing";
+import { Loader } from "..";
 
 interface ILogInFormProps {
   isLoginPage: boolean;
@@ -16,57 +11,63 @@ interface ILogInFormProps {
 
 export const LogInForm: FC<ILogInFormProps> = (props) => {
   const { isLoginPage } = props;
-  const dispatch = useDispatch();
 
-  const [formData, setFormData] = useState<IUserAuthData>({
+  const [registerFormData, setRegisterFormData] = useState<IUserRegisterData>({
     email: "",
     password: "",
+    fullName: "",
   });
-  const { loginMessage: message } = useSelector(selectApp);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSendActive, setSendActive] = useState(false);
 
   function handleChange(event: ChangeEvent) {
     const { id, value } = event.target;
-    setFormData((prevState) => ({ ...prevState, [id]: value }));
-    dispatch(saveLoginMessage(""));
+    setRegisterFormData((prevState) => ({ ...prevState, [id]: value }));
   }
 
   function clickSignUp() {
-    if (formData.password && formData.email) {
-      if (isLoginPage) {
-        loginUser(formData).catch((error) => {
-          dispatch(
-            addNotification({
-              message: error,
-              isError: true,
-            })
-          );
-        });
-      } else {
-        registerUser(formData).catch((error) =>
-          dispatch(
-            addNotification({
-              message: error,
-              isError: true,
-            })
-          )
-        );
+    if (isLoginPage) {
+      if (registerFormData.email && registerFormData.password) {
+        setIsLoading(true);
+        loginUser(registerFormData)
+          .then(() => setIsLoading(false))
+          .catch(() => setIsLoading(false));
+        return;
       }
-    } else dispatch(saveLoginMessage("Введите все данные"));
+    } else {
+      if (
+        registerFormData.email &&
+        registerFormData.fullName &&
+        registerFormData.password
+      ) {
+        setIsLoading(true);
+        registerUser(registerFormData)
+          .then(() => setIsLoading(false))
+          .catch(() => setIsLoading(false));
+        return;
+      }
+    }
   }
 
   useEffect(() => {
-    dispatch(saveLoginMessage(""));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoginPage]);
-
-  useEffect(() => {
-    if (formData.email && formData.password && !message) {
-      setSendActive(true);
+    if (isLoginPage) {
+      if (registerFormData.email && registerFormData.password ) {
+        setSendActive(true);
+      } else {
+        setSendActive(false);
+      }
     } else {
-      setSendActive(false);
+      if (
+        registerFormData.email &&
+        registerFormData.fullName &&
+        registerFormData.password
+      ) {
+        setSendActive(true);
+      } else {
+        setSendActive(false);
+      }
     }
-  }, [formData, message]);
+  }, [registerFormData, isLoginPage]);
 
   return (
     <div className="login_form">
@@ -75,7 +76,7 @@ export const LogInForm: FC<ILogInFormProps> = (props) => {
         type="text"
         placeholder="capvok"
         id="email"
-        value={formData.email}
+        value={registerFormData.email}
         onChange={handleChange}
       />
 
@@ -84,20 +85,37 @@ export const LogInForm: FC<ILogInFormProps> = (props) => {
         type="password"
         placeholder="123123"
         id="password"
-        value={formData.password}
+        value={registerFormData.password}
         onChange={handleChange}
       />
 
-      <button onClick={clickSignUp}>
-        <p
-          className={
-            isSendActive ? "login_form-send active" : "login_form-send"
-          }
-        >
-          {isLoginPage ? "Войти" : "Зарегистрироваться"}
-        </p>
-      </button>
-      <p className="login_form-message">{message}</p>
+      {!isLoginPage && (
+        <>
+          <label htmlFor="password">Имя</label>
+          <input
+            type="fullName"
+            placeholder="Владимир"
+            id="fullName"
+            value={registerFormData.fullName}
+            onChange={handleChange}
+          />
+        </>
+      )}
+      <div className="button_block">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <button onClick={clickSignUp} disabled={isLoading}>
+            <p
+              className={
+                isSendActive ? "login_form-send active" : "login_form-send"
+              }
+            >
+              {isLoginPage ? "Войти" : "Зарегистрироваться"}
+            </p>
+          </button>
+        )}
+      </div>
     </div>
   );
 };

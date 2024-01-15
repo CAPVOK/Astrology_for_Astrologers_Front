@@ -17,18 +17,13 @@ export const AuthPage: FC = () => {
   };
 
   if (isAuth)
-    return (
-      <Navigate
-        to={location.state?.from || "/"}
-        replace={true}
-      />
-    );
+    return <Navigate to={location.state?.from || "/"} replace={true} />;
 
   return (
     <div className="auth_page">
       <Breadcrumps
         location={location}
-        name={"Авторизация"}
+        crumbs={[{ label: "Авторизация", path: "" }]}
         isAbsolute={true}
         isCloseButton={false}
       />

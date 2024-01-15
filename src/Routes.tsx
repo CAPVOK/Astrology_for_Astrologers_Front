@@ -1,6 +1,5 @@
 import { RouteObject, useRoutes } from "react-router-dom";
 import {
-  AboutPage,
   AuthPage,
   ConstellationPage,
   HistoryPage,
@@ -20,12 +19,12 @@ export const AppRoutes = () => {
           element: <PrivatePages />,
           children: [
             {
-              path: "/constellation",
-              element: <ConstellationPage />,
+              path: "/constellations",
+              element: <HistoryPage />,
             },
             {
-              path: "/history",
-              element: <HistoryPage />,
+              path: "/constellations/:id",
+              element: <ConstellationPage />,
             },
           ],
         },
@@ -38,10 +37,10 @@ export const AppRoutes = () => {
           path: "/planet/:id",
           element: <PlanetPage />,
         },
-        {
+        /* {
           path: "/about",
           element: <AboutPage />,
-        },
+        }, */
         {
           path: "/auth",
           element: <AuthPage />,

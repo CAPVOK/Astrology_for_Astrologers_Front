@@ -40,6 +40,14 @@
   gap: 20px;
 }
 
+.mainpage-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 150px;
+}
+
 .menu {
   width: 100%;
   display: flex;

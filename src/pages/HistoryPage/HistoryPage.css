@@ -1,0 +1,5 @@
+.history_page .constellations {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

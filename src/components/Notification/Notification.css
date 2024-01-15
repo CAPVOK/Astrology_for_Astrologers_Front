@@ -1,19 +1,19 @@
 .notification {
   position: relative;
   padding: 10px;
-  width: 150px;
+  width: 200px;
   text-align: right;
   animation: slideIn 0.3s ease-in-out forwards;
   border-radius: 5px;
 }
 
 .notification.error {
-  color: black;
-  background-color: wheat;
+  color: white;
+  background-color: var(--error);
 }
 .notification.success {
   color: black;
-  background-color: wheat;
+  background-color: var(--success);
 }
 
 @keyframes slideIn {

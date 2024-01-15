@@ -3,7 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 
 export interface IAppData {
   searchName: string;
-  loginMessage: string;
+  startFormationDate: string;
+  searchStatus: string;
+  endFromationDate: string;
   notifications: INotification[];
 }
 
@@ -15,7 +17,9 @@ export interface INotification {
 
 const initialState: IAppData = {
   searchName: "",
-  loginMessage: "",
+  startFormationDate: "",
+  endFromationDate: "",
+  searchStatus: "",
   notifications: [],
 };
 
@@ -25,14 +29,25 @@ export const appSlice = createSlice({
   reducers: {
     refreshApp: (state) => {
       state.searchName = "";
-      state.loginMessage = "";
       state.notifications = [];
+      state.startFormationDate = "";
+      state.endFromationDate = "";
+      state.searchStatus = "";
     },
     saveSearchName: (state, action: PayloadAction<string>) => {
       state.searchName = action.payload;
     },
-    saveLoginMessage: (state, action: PayloadAction<string>) => {
-      state.loginMessage = action.payload;
+    saveConstellationParams: (
+      state,
+      action: PayloadAction<{
+        startFormationDate: string;
+        endFormationDate: string;
+        searchStatus: string;
+      }>
+    ) => {
+      state.startFormationDate = action.payload.startFormationDate;
+      state.endFromationDate = action.payload.endFormationDate;
+      state.searchStatus = action.payload.searchStatus;
     },
     addNotification: (
       state,
@@ -54,9 +69,9 @@ export const appSlice = createSlice({
 });
 
 export const {
-  saveLoginMessage,
   saveSearchName,
   addNotification,
+  saveConstellationParams,
   deleteNotification,
   refreshApp,
 } = appSlice.actions;

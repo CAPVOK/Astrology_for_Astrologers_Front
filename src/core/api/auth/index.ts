@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import axios, { isAxiosError } from "axios";
-import { responseBody } from "..";
-import { IUserAuthData } from "./typing";
+import axios from "axios";
+import { getToken, handleError } from "..";
 import { store } from "../../store";
-import { refreshApp } from "../../store/slices/appSlice";
-import * as bcrypt from "bcryptjs";
-import { refreshUser } from "../../store/slices/userSlice";
+import { addNotification, refreshApp } from "../../store/slices/appSlice";
+import { refreshUser, saveUser } from "../../store/slices/userSlice";
 import {} from "react-cookie";
+import {
+  IUserLoginData,
+  IUserLoginResponseData,
+  IUserRegisterData,
+} from "./typing";
+import { ACCESS_TOKEN_NAME, USER_NAME, USER_ROLE } from "../../../env";
 
 const authApi = axios.create({
-  baseURL: "/api/auth",
+  baseURL: "/api/user",
   headers: { "Content-Type": "application/json", Accept: "application/json" },
 });
 
@@ -18,78 +22,96 @@ authApi.interceptors.response.use(
     return response;
   },
   (error) => {
-    /* if (error.response && error.response.status === 401) {
-      logout();
-    } */
+    if (error.response && error.response.status === 401) {
+      store.dispatch(refreshApp());
+      store.dispatch(refreshUser());
+      localStorage.removeItem(ACCESS_TOKEN_NAME);
+      localStorage.removeItem(USER_ROLE);
+      localStorage.removeItem(USER_NAME);
+    }
     return Promise.reject(error);
   }
 );
 
-const hashPassword = async (password: string): Promise<number[]> => {
-  const saltRounds = 5; // уровень сложности хэширования
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-  const passwordArray = hashedPassword
-    .split("")
-    .map((char) => char.charCodeAt(0));
-
-  return passwordArray;
-};
-
-export const loginUser = async (userData: IUserAuthData) => {
+export const loginUser = async (userData: IUserLoginData) => {
   try {
-    const hashedPassword = await hashPassword(userData.password);
-    const { id }: { id: number } = responseBody(
-      await authApi.post("/login", {
-        ...userData,
-        password: hashedPassword,
+    const response = await authApi.post<IUserLoginResponseData>(
+      "/login",
+      userData
+    );
+    const user = response.data;
+    console.log("core loginUser", user);
+    store.dispatch(
+      saveUser({
+        userName: user.fullName,
+        isAuth: true,
+        role: user.role,
+        constellationId: 0,
       })
     );
-    return id;
+    localStorage.setItem(ACCESS_TOKEN_NAME, user.accessToken);
+    localStorage.setItem(USER_ROLE, user.role);
+    localStorage.setItem(USER_NAME, user.fullName);
+    return user;
   } catch (error) {
-    if (isAxiosError(error)) {
-      console.log(
-        "error message: ",
-        error.response?.data.message || error.message
-      );
-      throw error.response?.data.message || error.message;
-    } else {
-      console.log("unexpected error: ", error);
-    }
+    handleError(error);
   }
 };
 
-export const registerUser = async (userData: IUserAuthData) => {
+export const registerUser = async (userData: IUserRegisterData) => {
   try {
-    const hashedPassword = await hashPassword(userData.password);
-    const { id }: { id: number } = responseBody(
-      await authApi.post("/register", {
-        ...userData,
-        password: hashedPassword,
+    const response = await authApi.post<IUserLoginResponseData>(
+      "/register",
+      userData
+    );
+    const user = response.data;
+    console.log("core registerUser", user);
+    store.dispatch(
+      saveUser({
+        userName: user.fullName,
+        isAuth: true,
+        role: user.role,
+        constellationId: 0,
       })
     );
-    return id;
+    store.dispatch(
+      addNotification({
+        message: "Вы успешно зарегистрировались",
+      })
+    );
+    localStorage.setItem(ACCESS_TOKEN_NAME, user.accessToken);
+    localStorage.setItem(USER_ROLE, user.role);
+    localStorage.setItem(USER_NAME, user.fullName);
+    return user;
   } catch (error) {
-    if (isAxiosError(error)) {
-      console.log("error message: ", error.message);
-      throw error.response?.data.message || error.message;
-    } else {
-      console.log("unexpected error: ", error);
-    }
+    handleError(error);
   }
 };
 
 export const logout = async () => {
   try {
-    await authApi.post("/logout");
+    const token = localStorage.getItem(ACCESS_TOKEN_NAME);
     store.dispatch(refreshApp());
     store.dispatch(refreshUser());
+    const response = await authApi.post<IUserLoginResponseData>(
+      "/logout",
+      null,
+      {
+        headers: { Authorization: token },
+      }
+    );
+    const user = response.data;
+    store.dispatch(
+      addNotification({
+        message: "Вы успешно вышли из системы",
+      })
+    );
+    console.log("core logout", user);
+    localStorage.removeItem(ACCESS_TOKEN_NAME);
+    localStorage.removeItem(USER_ROLE);
+    localStorage.removeItem(USER_NAME);
+    return user;
   } catch (error) {
-    if (isAxiosError(error)) {
-      console.log("error message: ", error.message);
-      throw error.response?.data.message || error.message;
-    } else {
-      console.log("unexpected error: ", error);
-    }
+    handleError(error);
   }
 };

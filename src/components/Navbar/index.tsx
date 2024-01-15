@@ -11,7 +11,7 @@ import { logout } from "../../core/api/auth";
 import { Button } from "react-bootstrap";
 
 export const Navbar: FC = () => {
-  const { constellationId, isAuth } = useSelector(selectUser);
+  const { constellationId, isAuth, userName } = useSelector(selectUser);
 
   const location = useLocation();
 
@@ -30,11 +30,13 @@ export const Navbar: FC = () => {
           </NavbarComp.Brand>
           {isAuth ? (
             <div style={{ display: "flex", gap: "10xp" }}>
-              <NavbarComp.Brand>UserName</NavbarComp.Brand>
-              <Button variant="" onClick={logout}>Выйти</Button>
+              <NavbarComp.Brand style={{color: "#FB2576"}}>{userName}</NavbarComp.Brand>
+              <Button variant="danger" onClick={logout} style={{marginRight: "10px"}}>
+                Выйти
+              </Button>
             </div>
           ) : (
-            <Link to="/auth" style={{ color: "#FB2576" }}>
+            <Link to="/auth" style={{ color: "#FB2576", marginRight: "10px" }}>
               Войти
             </Link>
           )}
@@ -44,25 +46,25 @@ export const Navbar: FC = () => {
           />
           <NavbarComp.Collapse id="basic-navbar-nav">
             <Nav className="me-auto gap-4 gap-sm-3">
-              <NavLink
+              {/*  <NavLink
                 to="/"
                 className="text-white"
                 style={{ display: "flex", alignItems: "center" }}
               >
                 Главная
-              </NavLink>
-              <NavLink
-                to="/about"
+              </NavLink> */}
+              {isAuth && <NavLink
+                to="/constellations"
                 className="text-white"
                 style={{ display: "flex", alignItems: "center" }}
               >
-                О нас
-              </NavLink>
+                История
+              </NavLink>}
               {isAuth &&
-                location.pathname === "" &&
-                (constellationId && constellationId !== "0" ? (
+                location.pathname === "/" &&
+                (constellationId !== 0 ? (
                   <NavLink
-                    to="/constellation"
+                    to={`/constellations/${constellationId}`}
                     className="text-white"
                     state={{ from: location.pathname }}
                     style={{ display: "flex", alignItems: "center" }}

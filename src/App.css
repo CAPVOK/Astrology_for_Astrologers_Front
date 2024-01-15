@@ -1,9 +1,10 @@
 :root {
   --background: #000000;
   --accent: #FB2576;
-  --purple: #3F0071;
-  --blue: #150050;
+  --purple: #8c00ff;
+  --blue: #006eff;
   --error: #e80909;
+  --success: #4eff26;
   --gray: #292929;
   --gray-light: #858585;
 

@@ -3,13 +3,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface IUser {
   userName: string;
   isAuth: boolean;
-  constellationId: string;
+  role: string;
+  constellationId: number;
 }
 
 const initialState: IUser = {
-  userName: "",
   isAuth: false,
-  constellationId: "",
+  userName: "",
+  constellationId: 0,
+  role: "",
 };
 
 export const userSlice = createSlice({
@@ -18,31 +20,20 @@ export const userSlice = createSlice({
   reducers: {
     refreshUser: (state) => {
       state.isAuth = false;
-      state.constellationId = "";
+      state.constellationId = 0;
       state.userName = "";
+      state.role = "";
     },
-    saveUser: (state, action: PayloadAction<string>) => {
-      state.userName = action.payload;
-      state.isAuth = true;
+    saveUser: (state, action: PayloadAction<IUser>) => {
+      state.userName = action.payload.userName;
+      state.isAuth = action.payload.isAuth;
+      state.role = action.payload.role;
+      state.constellationId = action.payload.constellationId;
     },
-    saveAuth: (state, action: PayloadAction<boolean>) => {
-      state.isAuth = action.payload;
-    },
-    logoutUser: (state) => {
-      state.userName = "";
-      state.isAuth = false;
-      state.constellationId = "";
-    },
-    saveConstellation: (state, action: PayloadAction<string>) => {
+    saveConstellationId: (state, action: PayloadAction<number>) => {
       state.constellationId = action.payload;
     },
   },
 });
 
-export const {
-  saveUser,
-  logoutUser,
-  saveConstellation,
-  saveAuth,
-  refreshUser,
-} = userSlice.actions;
+export const { saveUser, refreshUser, saveConstellationId } = userSlice.actions;
