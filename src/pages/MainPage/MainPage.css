@@ -40,6 +40,14 @@
   gap: 20px;
 }
 
+.mainpage-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 150px;
+}
+
 .menu {
   width: 100%;
   display: flex;
@@ -59,6 +67,7 @@
   border: none;
   color: var(--gray-light);
   border-bottom: 2px solid var(--gray-light);
+  box-sizing: border-box;
 }
 .input-colot {
   color: var(--gray-light);

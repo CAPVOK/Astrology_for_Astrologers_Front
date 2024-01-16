@@ -1,17 +1,25 @@
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 import { AppRoutes } from "./Routes";
-import { store } from "./core/store";
+import { useDispatch } from "./core/store";
+import { saveUser } from "./core/store/slices/userSlice";
+import { USER_NAME, USER_ROLE } from "./env";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Provider store={store}>
-        <AppRoutes />
-      </Provider>
-    </BrowserRouter>
+  const dispatch = useDispatch();
+  const userName = localStorage.getItem(USER_NAME);
+  const userRole = localStorage.getItem(USER_ROLE);
+  const isAuth = !!userName && !!userRole;
+  dispatch(
+    saveUser({
+      userName: userName || "",
+      isAuth: isAuth,
+      role: userRole || "",
+      constellationId: 0,
+    })
   );
+  console.log("app rendered");
+
+  return <AppRoutes />;
 }
 
 export default App;

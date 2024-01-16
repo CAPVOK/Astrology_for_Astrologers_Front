@@ -8,13 +8,13 @@ import { selectUser } from "../../core/store/slices/selectors";
 export const PrivatePages: FC<IPrivatePagesProps> = (props) => {
   const { children } = props;
 
-  const { isAuth, constellation } = useSelector(selectUser);
+  const { isAuth } = useSelector(selectUser);
 
   const location = useLocation();
 
-  if (location.pathname === "/constellation" && !constellation) {
+  /* if (location.pathname === "/constellations" && !constellationId) {
     return <Navigate to="/" replace />;
-  }
+  } */
 
   if (!isAuth) {
     return (

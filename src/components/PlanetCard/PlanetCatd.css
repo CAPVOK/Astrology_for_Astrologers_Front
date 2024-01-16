@@ -30,13 +30,40 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
+  gap: 10px;
   color: white;
   padding: 20px;
   padding-right: 30px;
 }
 
+.card .content .add_button {
+  color: var(--gray-light);
+  transition: .3s
+}
+
+.card .content .add_button:hover {
+  color: var(--accent);
+}
+
+.card .content a {
+  transition: .3s;
+  color: var(--gray-light);
+}
+
+.card .content a:hover {
+  color: var(--white);
+}
+
+.card h3 {
+  text-wrap: pretty;
+}
+
 @media (max-width: 768px) {
   .card {
     height: 120px;
+  }
+
+  .card .content {
+    gap: 5px;
   }
 }

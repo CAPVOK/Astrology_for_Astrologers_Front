@@ -4,9 +4,8 @@ import { useLocation, useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { getPlanetById } from "../../core/api/planets";
 import { IPlanet } from "../../core/api/planets/typing";
-import { planets as PLANETS } from "../../core/moc/planets";
-import { Breadcrumps } from "../../components";
-import unknownIage from "/images/unknown.png"
+import { BreadCrumbs } from "../../components";
+import unknownIage from "/images/unknown.png";
 
 export const PlanetPage: FC = () => {
   const { id } = useParams();
@@ -14,27 +13,26 @@ export const PlanetPage: FC = () => {
   const [planetData, setPlanetData] = useState<IPlanet | null>(null);
 
   const location = useLocation();
+  const isCrumbs =
+    location.state?.fromPage &&
+    location.state?.fromPage.includes("/constellations");
+  console.log(location, !isCrumbs);
 
   useEffect(() => {
     if (id) {
-      getPlanetById(id)
-        .then((data) => {
+      getPlanetById(id).then((data) => {
+        if (data?.planet) {
           setPlanetData(data.planet);
-        })
-        .catch(() => {
-          const planet = PLANETS.planets.find(
-            (planet) => planet.Id === Number(id)
-          );
-          setPlanetData(planet || null);
-        });
+        }
+      });
     }
   }, [id]);
 
-  if (!planetData || !planetData.Name) {
+  if (!planetData || !planetData.name) {
     return (
       <>
-        <Breadcrumps location={location} />
-        <Container className="d-flex mt-5 h-100 justify-content-center">
+        <BreadCrumbs location={location} isCrumbs={false} crumbs={[]} />
+        <Container className="planet_page-loader">
           <h1>Загрузка</h1>
         </Container>
       </>
@@ -44,36 +42,38 @@ export const PlanetPage: FC = () => {
   return (
     <>
       <Container className="div planet_page">
-        <Breadcrumps
+        <BreadCrumbs
           location={location}
-          name={planetData?.Name}
+          crumbs={[{ label: planetData?.name || "", path: "" }]}
           isAbsolute={true}
+          isCrumbs={!isCrumbs}
         />
         <div className="content">
           <div className="blog">
             <div className="decoration_block"></div>
             <div className="about">
-              <h1>{planetData?.Name}</h1>
-              <p>{planetData?.Info}</p>
+              <h1>{planetData?.name}</h1>
+              <p>{planetData?.info}</p>
               <div className="info">
                 <h3>Открытие:</h3>
-                <p>{planetData?.Discovered}</p>
+                <p>{planetData?.discovered}</p>
               </div>
               <div className="info">
                 <h3>Масса:</h3>
-                <p>{planetData?.Mass}</p>
+                <p>{planetData?.mass}</p>
               </div>
               <div className="info">
                 <h3>Расстояние до земли:</h3>
-                <p>{planetData?.Distance}</p>
+                <p>{planetData?.distance}</p>
               </div>
             </div>
           </div>
           <div className="image">
-            {!planetData.ImageName || planetData.ImageName === "unknown.png" ? (
+            {!planetData.imageName ||
+            planetData.imageName.includes("unknown.png") ? (
               <img src={unknownIage} alt="" />
             ) : (
-              <img src={planetData.ImageName} alt={planetData.Name} />
+              <img src={planetData.imageName} alt={planetData.name} />
             )}
           </div>
         </div>

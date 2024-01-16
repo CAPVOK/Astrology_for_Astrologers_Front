@@ -5,9 +5,11 @@ import {
   useDispatch as useReduxDispatch,
   useSelector as useReduxSelector,
 } from "react-redux";
+import { appSlice } from './slices/appSlice';
 
 const rootReducer = combineReducers({
   user: userSlice.reducer,
+  app: appSlice.reducer,
 })
 
 export const store = configureStore({

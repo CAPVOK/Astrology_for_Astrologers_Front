@@ -3,22 +3,24 @@ export interface IPlanetsConstellation {
 }
 
 export interface IPlanet {
-  Color1: string;
-  Color2: string;
-  Discovered: string;
-  Distance: string;
-  Id: number;
-  ImageName: string;
-  Info: string;
-  Mass: string;
-  Name: string;
+  planetId: number;
+  name: string;
+  discovered: string;
+  mass: string;
+  distance: string;
+  info: string;
+  color1: string;
+  color2: string;
+  status: string;
+  imageName: string;
 }
 
 export interface IGetPlanetsResponse {
-  constellation: IPlanetsConstellation;
+  constellationID: number;
   planets: IPlanet[];
 }
 
 export interface IGetPlanetByIdResponse {
   planet: IPlanet;
 }
+

@@ -1,8 +1,14 @@
 import { Location } from "react-router-dom";
 
-export interface IBreadcrumps {
+export interface ICrumb {
+  label: string;
+  path: string;
+}
+
+export interface IBreadcrumpsProps {
   location: Location;
-  name?: string;
+  crumbs: ICrumb[]
+  isCrumbs?: boolean;
   isCloseButton?: boolean;
   isFixed?: boolean;
   isAbsolute?: boolean;

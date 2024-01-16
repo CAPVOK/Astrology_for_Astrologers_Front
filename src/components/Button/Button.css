@@ -1,0 +1,27 @@
+.my_button {
+  padding: 5px 8px;
+  border: 1px solid var(--accent);
+  text-align: center;
+  width: fit-content;
+  color: var(--gray-light);
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.my_button.loading {
+  border: 1px solid var(--gray-light);
+  color: var(--gray);
+}
+
+.my_button:hover:not(.loading) {
+  color: white;
+  outline: none;
+  outline-color: transparent;
+}
+
+.my_button:active:not(.loading) {
+  outline: none;
+  outline-color: transparent;
+  color: white;
+  outline: none;
+}

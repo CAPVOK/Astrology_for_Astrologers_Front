@@ -85,6 +85,14 @@
   align-items: center;
 }
 
+.planet_page-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: 50px;
+}
+
 @media (max-width: 768px) {
   .planet_page {
     height: 100%;

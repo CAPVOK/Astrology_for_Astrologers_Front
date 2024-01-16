@@ -1,0 +1,28 @@
+.notification {
+  position: relative;
+  padding: 10px;
+  width: 200px;
+  text-align: right;
+  animation: slideIn 0.3s ease-in-out forwards;
+  border-radius: 5px;
+}
+
+.notification.error {
+  color: white;
+  background-color: var(--error);
+}
+.notification.success {
+  color: black;
+  background-color: var(--success);
+}
+
+@keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(150px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }

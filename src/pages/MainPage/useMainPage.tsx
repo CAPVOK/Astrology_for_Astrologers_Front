@@ -1,39 +1,72 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IPlanet } from "../../core/api/planets/typing";
-import { getPlanets } from "../../core/api/planets";
+import {
+  addPlanetByIdToConstellation,
+  getPlanets,
+} from "../../core/api/planets";
 import { ChangeEvent } from "../../App.typing";
-import { planets as PLANETS } from "../../core/moc/planets";
+import { useDispatch } from "../../core/store";
+import { useSelector } from "react-redux";
+import { selectApp, selectUser } from "../../core/store/slices/selectors";
+import {
+  addNotification,
+  saveSearchName,
+} from "../../core/store/slices/appSlice";
 
 export const useMainPage = () => {
   const [planets, setPlanets] = useState<IPlanet[]>([]);
-  const [searchName, setSearchName] = useState("");
+  const [isPageLoading, setIsPageLoading] = useState(false);
+  const [planetLoading, setPlanetLoading] = useState(-1);
 
   const location = useLocation();
-  console.log(location);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { searchName } = useSelector(selectApp);
+  const { isAuth } = useSelector(selectUser);
+
+  const TIMER = 250;
+
   const handleSearchPlanetsClick = () => {
+    const loadingTimer = setTimeout(() => {
+      setIsPageLoading(true);
+    }, TIMER);
     getPlanets(searchName)
       .then((data) => {
-        setPlanets(data.planets);
-        console.log(data.planets);
+        if (data) {
+          setPlanets(data.planets);
+          setIsPageLoading(false);
+          clearTimeout(loadingTimer);
+        }
       })
       .catch(() => {
-        const filteredPlanets = PLANETS.planets.filter((planet) =>
-          planet.Name.toLowerCase().startsWith(searchName.toLowerCase())
-        );
-        setPlanets(filteredPlanets);
-      }); // moc данные
+        setIsPageLoading(false);
+        clearTimeout(loadingTimer);
+      });
+  };
+
+  const getPlanetsHandler = () => {
+    const loadingTimer = setTimeout(() => {
+      setIsPageLoading(true);
+    }, TIMER);
+    getPlanets()
+      .then((data) => {
+        if (data) {
+          setPlanets(data.planets);
+        }
+        clearTimeout(loadingTimer);
+        setIsPageLoading(false);
+      })
+      .catch(() => {
+        setIsPageLoading(false);
+        clearTimeout(loadingTimer);
+      });
   };
 
   const handleGetAllPlanetsClick = () => {
-    getPlanets()
-      .then((data) => {
-        setPlanets(data.planets);
-        console.log(data.planets);
-      })
-      .catch(() => setPlanets(PLANETS.planets)); // мок
+    dispatch(saveSearchName(""));
+    getPlanetsHandler();
   };
 
   function scrollToPlanet() {
@@ -50,17 +83,33 @@ export const useMainPage = () => {
     }
   }
 
+  const handleAddPlanetCLick = (id: number, name: string) => {
+    const loadingTimer = setTimeout(() => {
+      setPlanetLoading(id);
+    }, TIMER);
+    addPlanetByIdToConstellation(id)
+      .then(() => {
+        clearTimeout(loadingTimer);
+        setPlanetLoading(-1);
+        dispatch(
+          addNotification({
+            message: `Планета ${name} добавлена успешно`,
+          })
+        );
+      })
+      .catch(() => {
+        clearTimeout(loadingTimer);
+        setPlanetLoading(-1);
+      });
+  };
+
   const handleSearchNameChange = (e: ChangeEvent) => {
-    setSearchName(e.target.value);
+    dispatch(saveSearchName(e.target.value));
   };
 
   useEffect(() => {
-    getPlanets()
-      .then((data) => {
-        setPlanets(data.planets);
-        console.log(data.planets);
-      })
-      .catch(() => setPlanets(PLANETS.planets)); // мок
+    getPlanetsHandler();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -70,10 +119,17 @@ export const useMainPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [planets]);
 
+  const isPageActive = !isPageLoading;
+
   return {
+    isAuth,
     planets,
+    searchName,
+    isPageActive,
+    planetLoading,
     handleSearchPlanetsClick,
-    handleSearchNameChange,
     handleGetAllPlanetsClick,
+    handleSearchNameChange,
+    handleAddPlanetCLick,
   };
 };

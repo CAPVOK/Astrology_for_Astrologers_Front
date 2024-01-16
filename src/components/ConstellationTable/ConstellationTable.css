@@ -1,0 +1,42 @@
+.stella_table_empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.stella_table {
+  overflow-x: scroll;
+  margin-inline: 40px;
+}
+
+.stella_table .table_manage_buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.stella_table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.stella_table td:first-child {
+  color: var(--accent);
+}
+.stella_table tr {
+  border-top: 1px solid var(--gray);
+}
+.stella_table tr:hover:not(.no_hover) {
+  background-color: var(--gray);
+}
+
+.stella_table th,
+.stella_table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.stella_table th {
+  background-color: var(--gray);
+}

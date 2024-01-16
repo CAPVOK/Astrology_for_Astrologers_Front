@@ -1,7 +1,7 @@
 import "./AboutPage.css";
 import { FC } from "react";
 import { useLocation } from "react-router-dom";
-import { Breadcrumps } from "../../components";
+import { BreadCrumbs } from "../../components";
 import { Col, Container, Row } from "react-bootstrap";
 
 export const AboutPage: FC = () => {
@@ -9,7 +9,7 @@ export const AboutPage: FC = () => {
 
   return (
     <div>
-      <Breadcrumps
+      <BreadCrumbs
         location={location}
         name="О нас"
         isCloseButton={false}

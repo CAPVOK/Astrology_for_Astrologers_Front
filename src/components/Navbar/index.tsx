@@ -4,17 +4,20 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import NavbarComp from "react-bootstrap/Navbar";
 import { PlanetIcon } from "../icons";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "../../core/store";
 import { selectUser } from "../../core/store/slices/selectors";
+import { logout } from "../../core/api/auth";
+import { Button } from "react-bootstrap";
 
 export const Navbar: FC = () => {
-  const { constellation } = useSelector(selectUser);
+  const { constellationId, isAuth, userName } = useSelector(selectUser);
+  const location = useLocation();
 
   return (
     <>
       <NavbarComp
-        expand="lg"
+        expand="md"
         data-bs-theme="dark"
         className="position-absolute w-100"
       >
@@ -24,48 +27,70 @@ export const Navbar: FC = () => {
               <PlanetIcon fill="white" height="32" width="40" />
             </Link>
           </NavbarComp.Brand>
+          {isAuth ? (
+            <div style={{ display: "flex", gap: "10xp" }}>
+              <NavbarComp.Brand style={{ color: "#FB2576" }}>
+                {userName}
+              </NavbarComp.Brand>
+              <Button
+                variant="danger"
+                onClick={logout}
+                style={{ marginRight: "10px" }}
+              >
+                Выйти
+              </Button>
+            </div>
+          ) : (
+            <Link to="/auth" style={{ color: "#FB2576", marginRight: "10px" }}>
+              Войти
+            </Link>
+          )}
           <NavbarComp.Toggle
             aria-controls="basic-navbar-nav"
             className="outline-none"
           />
           <NavbarComp.Collapse id="basic-navbar-nav">
             <Nav className="me-auto gap-4 gap-sm-3">
-              <NavLink
+              {/*  <NavLink
                 to="/"
                 className="text-white"
                 style={{ display: "flex", alignItems: "center" }}
               >
                 Главная
-              </NavLink>
-              <NavLink
-                to="/about"
-                className="text-white"
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                О нас
-              </NavLink>
-              {constellation ? (
+              </NavLink> */}
+              {isAuth && (
                 <NavLink
-                  to="/constellation"
+                  to="/constellations"
                   className="text-white"
-                  state={{ from: location.pathname }}
                   style={{ display: "flex", alignItems: "center" }}
                 >
-                  Созвездие
+                  История
                 </NavLink>
-              ) : (
-                <p
-                  style={{
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    margin: "0",
-                  }}
-                  className="text-secondary"
-                >
-                  Созвездие
-                </p>
               )}
+              {isAuth &&
+                location.pathname === "/" &&
+                (constellationId !== 0 ? (
+                  <NavLink
+                    to={`/constellations/${constellationId}`}
+                    className="text-white"
+                    state={{ from: location.pathname }}
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    Созвездие
+                  </NavLink>
+                ) : (
+                  <p
+                    style={{
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "0",
+                    }}
+                    className="text-secondary"
+                  >
+                    Созвездие
+                  </p>
+                ))}
             </Nav>
           </NavbarComp.Collapse>
         </Container>
