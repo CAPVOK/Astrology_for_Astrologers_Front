@@ -15,6 +15,7 @@ import { useDispatch } from "../../core/store";
 import { deletePlanetByIdFromConstellation } from "../../core/api/planets";
 import { addNotification } from "../../core/store/slices/appSlice";
 import { ChangeEvent } from "../../App.typing";
+import { IBreadcrumpsProps } from "../../components/BreadCrumbs/typing";
 
 export const useConstellationPage = () => {
   const { id } = useParams();
@@ -193,6 +194,19 @@ export const useConstellationPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (
+      !formData ||
+      !formData.name ||
+      !formData.startDate ||
+      !formData.endDate
+    ) {
+      setEditButtonLoading(true);
+      return;
+    }
+    setEditButtonLoading(false);
+  }, [formData]);
+
   const hadleChangeFormData = (e: ChangeEvent) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -208,6 +222,25 @@ export const useConstellationPage = () => {
     return date;
   };
 
+  const statusColors = {
+    created: "#858585",
+    canceled: "#e80909",
+    inprogress: "white",
+    deleted: "#e80909",
+    completed: "#4eff26",
+  };
+  const statusLabel = {
+    created: "черновик",
+    canceled: "отменено",
+    inprogress: "в прогрессе",
+    deleted: "удалено",
+    completed: "подтверждено",
+  };
+
+  const getStatusColor = (status: string) => {
+    return statusColors[status as keyof typeof statusColors];
+  };
+
   const crumbs = !constellationData?.formationDate
     ? [{ label: "Мое созвездие", path: "" }]
     : [
@@ -215,25 +248,34 @@ export const useConstellationPage = () => {
         { label: constellationData.name, path: "" },
       ];
 
+  const breadCrumbsProps: IBreadcrumpsProps = {
+    location: location,
+    crumbs: crumbs,
+    isCloseButton: false,
+    isAbsolute: false,
+    isFixed: false,
+  };
+
   return {
     getDate,
-    handleChangeMode,
     handleReset,
+    getStatusColor,
+    handleChangeMode,
+    handlePlanetDelete,
     hadleChangeFormData,
     convertToCalendarDate,
-    handleConstellationChangeStatus,
-    handleDeleteConstellation,
-    handlePlanetDelete,
     handleUpdateConstellation,
+    handleDeleteConstellation,
+    handleConstellationChangeStatus,
     deleteButtonLoading,
+    breadCrumbsProps,
     formButtonLoading,
     editButtonLoading,
     constellationData,
     planetLoading,
     isChangeMode,
-    location,
+    statusLabel,
     formData,
-    crumbs,
     id,
   };
 };

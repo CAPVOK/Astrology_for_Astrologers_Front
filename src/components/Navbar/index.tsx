@@ -5,14 +5,17 @@ import Nav from "react-bootstrap/Nav";
 import NavbarComp from "react-bootstrap/Navbar";
 import { PlanetIcon } from "../icons";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { useSelector } from "../../core/store";
-import { selectUser } from "../../core/store/slices/selectors";
+import { useDispatch, useSelector } from "../../core/store";
+import { selectApp, selectUser } from "../../core/store/slices/selectors";
 import { logout } from "../../core/api/auth";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { saveisAdmin } from "../../core/store/slices/appSlice";
 
 export const Navbar: FC = () => {
-  const { constellationId, isAuth, userName } = useSelector(selectUser);
+  const { constellationId, isAuth, userName, role } = useSelector(selectUser);
+  const { isAdmin } = useSelector(selectApp);
 
+  const dispatch = useDispatch();
   const location = useLocation();
 
   return (
@@ -30,10 +33,32 @@ export const Navbar: FC = () => {
           </NavbarComp.Brand>
           {isAuth ? (
             <div style={{ display: "flex", gap: "10xp" }}>
-              <NavbarComp.Brand style={{color: "#FB2576"}}>{userName}</NavbarComp.Brand>
-              <Button variant="danger" onClick={logout} style={{marginRight: "10px"}}>
+              <NavbarComp.Brand style={{ color: "#FB2576" }}>
+                {userName}
+              </NavbarComp.Brand>
+              <Button
+                variant="danger"
+                onClick={logout}
+                style={{ marginRight: "10px" }}
+              >
                 Выйти
               </Button>
+              {role === "модератор" && (
+                <Form.Check
+                  style={{
+                    margin: "0",
+                    display: "flex",
+                    alignItems: "center",
+                    marginRight: "10px",
+                    gap: "5px"
+                  }}
+                  type="switch"
+                  id="custom-switch"
+                  label="Модератор"
+                  checked={isAdmin}
+                  onChange={() => dispatch(saveisAdmin(!isAdmin))}
+                />
+              )}
             </div>
           ) : (
             <Link to="/auth" style={{ color: "#FB2576", marginRight: "10px" }}>
@@ -53,13 +78,15 @@ export const Navbar: FC = () => {
               >
                 Главная
               </NavLink> */}
-              {isAuth && <NavLink
-                to="/constellations"
-                className="text-white"
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                История
-              </NavLink>}
+              {isAuth && (
+                <NavLink
+                  to="/constellations"
+                  className="text-white"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  История
+                </NavLink>
+              )}
               {isAuth &&
                 location.pathname === "/" &&
                 (constellationId !== 0 ? (

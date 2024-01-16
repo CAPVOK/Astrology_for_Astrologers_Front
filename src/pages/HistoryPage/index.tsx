@@ -1,20 +1,28 @@
 import "./HistoryPage.css";
 import { FC } from "react";
 import { useHistoryPage } from "./useHistoryPage";
-import { Link } from "react-router-dom";
+import {
+  BreadCrumbs,
+  ConstellationTable,
+  Filters,
+  Loader,
+} from "../../components";
 
 export const HistoryPage: FC = () => {
-  const { constellations } = useHistoryPage();
+  const { tableProps, isPageLoading, crumbsProps, filtersProps } =
+    useHistoryPage();
 
   return (
     <div className="history_page">
-      <div className="constellations">
-        {constellations &&
-          !!constellations.length &&
-          constellations.map((stella) => (
-            <Link to={`/constellations/${stella.id}`}>{stella.name}</Link>
-          ))}
-      </div>
+      <BreadCrumbs {...crumbsProps} />
+      <Filters {...filtersProps} />
+      {isPageLoading ? (
+        <div className="history_page_loader">
+          <Loader />
+        </div>
+      ) : (
+        <ConstellationTable {...tableProps} />
+      )}
     </div>
   );
 };

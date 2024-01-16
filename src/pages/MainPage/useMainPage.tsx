@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { IPlanet } from "../../core/api/planets/typing";
 import {
   addPlanetByIdToConstellation,
+  deletePlanetById,
   getPlanets,
 } from "../../core/api/planets";
 import { ChangeEvent } from "../../App.typing";
@@ -13,17 +14,19 @@ import {
   addNotification,
   saveSearchName,
 } from "../../core/store/slices/appSlice";
+import { IPlanetsTableProps } from "../../components/PlanetsTable";
 
 export const useMainPage = () => {
   const [planets, setPlanets] = useState<IPlanet[]>([]);
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [planetLoading, setPlanetLoading] = useState(-1);
+  const [buttonLoadingId, setButtonLoadingId] = useState(-1);
 
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { searchName } = useSelector(selectApp);
+  const { searchName, isAdmin } = useSelector(selectApp);
   const { isAuth } = useSelector(selectUser);
 
   const TIMER = 250;
@@ -46,8 +49,7 @@ export const useMainPage = () => {
       });
   };
 
-  const handleGetAllPlanetsClick = () => {
-    dispatch(saveSearchName(""));
+  const getPlanetsHandler = () => {
     const loadingTimer = setTimeout(() => {
       setIsPageLoading(true);
     }, TIMER);
@@ -55,14 +57,19 @@ export const useMainPage = () => {
       .then((data) => {
         if (data) {
           setPlanets(data.planets);
-          setIsPageLoading(false);
-          clearTimeout(loadingTimer);
         }
+        clearTimeout(loadingTimer);
+        setIsPageLoading(false);
       })
       .catch(() => {
         setIsPageLoading(false);
         clearTimeout(loadingTimer);
       });
+  };
+
+  const handleGetAllPlanetsClick = () => {
+    dispatch(saveSearchName(""));
+    getPlanetsHandler();
   };
 
   function scrollToPlanet() {
@@ -103,22 +110,27 @@ export const useMainPage = () => {
     dispatch(saveSearchName(e.target.value));
   };
 
-  useEffect(() => {
+  const doPlanetDeleted = (id: number) => {
     const loadingTimer = setTimeout(() => {
-      setIsPageLoading(true);
+      setButtonLoadingId(id);
     }, TIMER);
-    getPlanets(searchName)
+    deletePlanetById(id)
       .then((data) => {
         if (data) {
-          setIsPageLoading(false);
           setPlanets(data.planets);
-          clearTimeout(loadingTimer);
         }
+        dispatch(addNotification({ message: "Планета удалена" }));
+        clearTimeout(loadingTimer);
+        setButtonLoadingId(-1);
       })
       .catch(() => {
-        setIsPageLoading(false);
+        setButtonLoadingId(-1);
         clearTimeout(loadingTimer);
       });
+  };
+
+  useEffect(() => {
+    getPlanetsHandler();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -129,17 +141,25 @@ export const useMainPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [planets]);
 
+  const planetsTableProps: IPlanetsTableProps = {
+    dataRows: planets,
+    deleteHandler: doPlanetDeleted,
+    buttonLoadingId: buttonLoadingId,
+  };
+
   const isPageActive = !isPageLoading;
 
   return {
     isAuth,
+    planets,
+    isAdmin,
     searchName,
     isPageActive,
     planetLoading,
-    planets,
+    planetsTableProps,
     handleSearchPlanetsClick,
-    handleSearchNameChange,
     handleGetAllPlanetsClick,
+    handleSearchNameChange,
     handleAddPlanetCLick,
   };
 };

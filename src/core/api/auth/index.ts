@@ -93,6 +93,9 @@ export const logout = async () => {
     const token = localStorage.getItem(ACCESS_TOKEN_NAME);
     store.dispatch(refreshApp());
     store.dispatch(refreshUser());
+    localStorage.removeItem(ACCESS_TOKEN_NAME);
+    localStorage.removeItem(USER_ROLE);
+    localStorage.removeItem(USER_NAME);
     const response = await authApi.post<IUserLoginResponseData>(
       "/logout",
       null,
@@ -107,9 +110,6 @@ export const logout = async () => {
       })
     );
     console.log("core logout", user);
-    localStorage.removeItem(ACCESS_TOKEN_NAME);
-    localStorage.removeItem(USER_ROLE);
-    localStorage.removeItem(USER_NAME);
     return user;
   } catch (error) {
     handleError(error);

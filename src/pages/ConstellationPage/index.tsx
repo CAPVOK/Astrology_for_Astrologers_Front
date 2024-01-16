@@ -1,6 +1,6 @@
 import "./ConstellationPage.css";
 import { FC } from "react";
-import { Breadcrumps, Loader, PlanetCard } from "../../components";
+import { BreadCrumbs, Loader, PlanetCard } from "../../components";
 import { CONST_STATUS } from "../../core/api/constellations/typing";
 import { Container } from "react-bootstrap";
 import { IPlanetCardProps } from "../../components/PlanetCard/typing";
@@ -10,23 +10,24 @@ import { useConstellationPage } from "./useConstellationPage";
 export const ConstellationPage: FC = () => {
   const {
     getDate,
-    handleChangeMode,
     handleReset,
+    getStatusColor,
+    handleChangeMode,
+    handlePlanetDelete,
     hadleChangeFormData,
     convertToCalendarDate,
-    handleConstellationChangeStatus,
-    handleDeleteConstellation,
-    handlePlanetDelete,
     handleUpdateConstellation,
+    handleDeleteConstellation,
+    handleConstellationChangeStatus,
     deleteButtonLoading,
+    breadCrumbsProps,
     formButtonLoading,
     editButtonLoading,
     constellationData,
     planetLoading,
     isChangeMode,
-    location,
+    statusLabel,
     formData,
-    crumbs,
     id,
   } = useConstellationPage();
 
@@ -38,13 +39,7 @@ export const ConstellationPage: FC = () => {
 
   return (
     <div className="constellation_page">
-      <Breadcrumps
-        location={location}
-        crumbs={crumbs}
-        isCloseButton={false}
-        isAbsolute={false}
-        isFixed={false}
-      />
+      <BreadCrumbs {...breadCrumbsProps} />
       {constellationData ? (
         <>
           <div className="constellation_content">
@@ -94,6 +89,12 @@ export const ConstellationPage: FC = () => {
                   ).toLocaleDateString()}
                 </p>
               )}
+            </div>
+            <div className="info">
+              <h3>Статус:</h3>
+              <p style={{ color: getStatusColor(constellationData.status) }}>
+                {statusLabel[constellationData.status]}
+              </p>
             </div>
             <div className="info">
               <h3>Дата создания:</h3>

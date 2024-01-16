@@ -68,6 +68,16 @@ export const getPlanetById = async (
   }
 };
 
+export const deletePlanetById = async (id: number | string) => {
+  try {
+    const response = await planetApi.delete<IGetPlanetsResponse>(`/${id}`);
+    console.log("core deletePlanetById", response.data);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 export const addPlanetByIdToConstellation = async (id: number | string) => {
   try {
     const response = await planetApi.post<IGetPlanetsResponse>(

@@ -1,6 +1,6 @@
 import "./MainPage.css";
 import { FC } from "react";
-import { Loader, Navbar, PlanetCard } from "../../components";
+import { Loader, Navbar, PlanetCard, PlanetsTable } from "../../components";
 import { IPlanetCardProps } from "../../components/PlanetCard/typing";
 import { useMainPage } from "./useMainPage";
 import { Button, Container } from "react-bootstrap";
@@ -15,6 +15,8 @@ export const MainPage: FC = () => {
     planetLoading,
     isPageActive,
     isAuth,
+    isAdmin,
+    planetsTableProps,
     handleAddPlanetCLick,
   } = useMainPage();
 
@@ -72,36 +74,38 @@ export const MainPage: FC = () => {
           Искать
         </Button>
       </Container>
-      {isPageActive ? (
-        <>
-          {planets && !!planets.length ? (
-            <Container className="div planets" id="planets">
-              {planets.map((planet, index) => {
-                const props: IPlanetCardProps = {
-                  id: planet.planetId,
-                  name: planet.name,
-                  color1: planet.color1,
-                  color2: planet.color2,
-                  imageName: planet.imageName,
-                  handler: () =>
-                    handleAddPlanetCLick(planet.planetId, planet.name),
-                  isAuth,
-                  loadingId: planetLoading,
-                };
-                return <PlanetCard key={index} {...props} />;
-              })}
-            </Container>
-          ) : (
-            <Container className="d-flex justify-content-center mt-4 mb-5">
-              <h2>Ничего не найдено</h2>
-            </Container>
-          )}
-        </>
-      ) : (
-        <div className="mainpage-loading">
-          <Loader />
-        </div>
-      )}
+      {isAdmin && <PlanetsTable {...planetsTableProps} />}
+      {!isAdmin &&
+        (isPageActive ? (
+          <>
+            {planets && !!planets.length ? (
+              <Container className="div planets" id="planets">
+                {planets.map((planet, index) => {
+                  const props: IPlanetCardProps = {
+                    id: planet.planetId,
+                    name: planet.name,
+                    color1: planet.color1,
+                    color2: planet.color2,
+                    imageName: planet.imageName,
+                    handler: () =>
+                      handleAddPlanetCLick(planet.planetId, planet.name),
+                    isAuth,
+                    loadingId: planetLoading,
+                  };
+                  return <PlanetCard key={index} {...props} />;
+                })}
+              </Container>
+            ) : (
+              <Container className="d-flex justify-content-center mt-4 mb-5">
+                <h2>Ничего не найдено</h2>
+              </Container>
+            )}
+          </>
+        ) : (
+          <div className="mainpage-loading">
+            <Loader />
+          </div>
+        ))}
     </Container>
   );
 };

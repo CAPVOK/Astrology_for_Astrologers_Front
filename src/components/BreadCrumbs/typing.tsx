@@ -5,7 +5,7 @@ export interface ICrumb {
   path: string;
 }
 
-export interface IBreadcrumps {
+export interface IBreadcrumpsProps {
   location: Location;
   crumbs: ICrumb[]
   isCrumbs?: boolean;

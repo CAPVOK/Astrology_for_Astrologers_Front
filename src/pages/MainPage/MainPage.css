@@ -67,6 +67,7 @@
   border: none;
   color: var(--gray-light);
   border-bottom: 2px solid var(--gray-light);
+  box-sizing: border-box;
 }
 .input-colot {
   color: var(--gray-light);

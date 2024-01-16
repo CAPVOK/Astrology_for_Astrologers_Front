@@ -4,7 +4,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { selectUser } from "../../core/store/slices/selectors";
 import { useSelector } from "react-redux";
 import { LogInForm } from "../../components/LogInForm";
-import { Breadcrumps } from "../../components";
+import { BreadCrumbs } from "../../components";
 
 export const AuthPage: FC = () => {
   const { isAuth } = useSelector(selectUser);
@@ -21,7 +21,7 @@ export const AuthPage: FC = () => {
 
   return (
     <div className="auth_page">
-      <Breadcrumps
+      <BreadCrumbs
         location={location}
         crumbs={[{ label: "Авторизация", path: "" }]}
         isAbsolute={true}

@@ -6,7 +6,9 @@ export interface IAppData {
   startFormationDate: string;
   searchStatus: string;
   endFromationDate: string;
+  searchConstName: string;
   notifications: INotification[];
+  isAdmin: boolean;
 }
 
 export interface INotification {
@@ -20,6 +22,8 @@ const initialState: IAppData = {
   startFormationDate: "",
   endFromationDate: "",
   searchStatus: "",
+  searchConstName: "",
+  isAdmin: false,
   notifications: [],
 };
 
@@ -29,13 +33,30 @@ export const appSlice = createSlice({
   reducers: {
     refreshApp: (state) => {
       state.searchName = "";
+      state.searchConstName = "";
       state.notifications = [];
       state.startFormationDate = "";
       state.endFromationDate = "";
       state.searchStatus = "";
+      state.isAdmin = false;
     },
     saveSearchName: (state, action: PayloadAction<string>) => {
       state.searchName = action.payload;
+    },
+    saveisAdmin: (state, action: PayloadAction<boolean>) => {
+      state.isAdmin = action.payload;
+    },
+    saveSearchConstName: (state, action: PayloadAction<string>) => {
+      state.searchConstName = action.payload;
+    },
+    saveStartFormationDate: (state, action: PayloadAction<string>) => {
+      state.startFormationDate = action.payload;
+    },
+    saveEndFormationDate: (state, action: PayloadAction<string>) => {
+      state.endFromationDate = action.payload;
+    },
+    saveSearchStatus: (state, action: PayloadAction<string>) => {
+      state.searchStatus = action.payload;
     },
     saveConstellationParams: (
       state,
@@ -70,8 +91,13 @@ export const appSlice = createSlice({
 
 export const {
   saveSearchName,
+  saveSearchConstName,
+  saveStartFormationDate,
+  saveEndFormationDate,
+  saveSearchStatus,
   addNotification,
   saveConstellationParams,
+  saveisAdmin,
   deleteNotification,
   refreshApp,
 } = appSlice.actions;

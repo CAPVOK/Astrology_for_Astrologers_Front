@@ -4,7 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { getPlanetById } from "../../core/api/planets";
 import { IPlanet } from "../../core/api/planets/typing";
-import { Breadcrumps } from "../../components";
+import { BreadCrumbs } from "../../components";
 import unknownIage from "/images/unknown.png";
 
 export const PlanetPage: FC = () => {
@@ -31,7 +31,7 @@ export const PlanetPage: FC = () => {
   if (!planetData || !planetData.name) {
     return (
       <>
-        <Breadcrumps location={location} isCrumbs={false} crumbs={[]} />
+        <BreadCrumbs location={location} isCrumbs={false} crumbs={[]} />
         <Container className="planet_page-loader">
           <h1>Загрузка</h1>
         </Container>
@@ -42,7 +42,7 @@ export const PlanetPage: FC = () => {
   return (
     <>
       <Container className="div planet_page">
-        <Breadcrumps
+        <BreadCrumbs
           location={location}
           crumbs={[{ label: planetData?.name || "", path: "" }]}
           isAbsolute={true}

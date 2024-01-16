@@ -1,10 +1,10 @@
-import "./Breadcrumps.css";
+import "./BreadCrumbs.css";
 import React, { FC } from "react";
-import { IBreadcrumps } from "./typing.tsx";
+import { IBreadcrumpsProps } from "./typing.tsx";
 import { Link } from "react-router-dom";
 import { CloseButton } from "react-bootstrap";
 
-export const Breadcrumps: FC<IBreadcrumps> = (props) => {
+export const BreadCrumbs: FC<IBreadcrumpsProps> = (props) => {
   const {
     location,
     crumbs,

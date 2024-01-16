@@ -1,0 +1,29 @@
+.filters {
+  margin-block: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  row-gap: 10px;
+  column-gap: 20px;
+  flex-wrap: wrap;
+  margin-inline: 20px;
+}
+
+.filters input:hover,
+.filters input:active,
+.filters input:focus {
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.filters .item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filters .item p {
+  color: var(--accent);
+  margin: 0;
+}

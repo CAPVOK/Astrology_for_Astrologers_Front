@@ -1,0 +1,42 @@
+.planet_table_empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.planet_table {
+  overflow-x: scroll;
+  margin-inline: 40px;
+}
+
+.planet_table .table_manage_buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.planet_table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.planet_table td:first-child {
+  color: var(--accent);
+}
+.planet_table tr {
+  border-top: 1px solid var(--gray);
+}
+.planet_table tr:hover:not(.no_hover) {
+  background-color: var(--gray);
+}
+
+.planet_table th,
+.planet_table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.planet_table th {
+  background-color: var(--gray);
+}
