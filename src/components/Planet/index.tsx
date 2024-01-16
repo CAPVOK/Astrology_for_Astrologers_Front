@@ -3,10 +3,10 @@ import { FC } from "react";
 import { IPlanetProps } from "./typing";
 
 export const Planet: FC<IPlanetProps> = (props) => {
-  const { color1, color2 } = props;
+  const { color1, color2, width } = props;
 
   return (
-    <div className="planet">
+    <div className="planet" style={{ width: width && width }}>
       <div className="circle" style={{ backgroundColor: color1 }}>
         <div className="color_blocks">
           <div className="block" style={{ backgroundColor: color2 }}></div>

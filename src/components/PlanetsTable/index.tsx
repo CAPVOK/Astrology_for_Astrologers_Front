@@ -55,7 +55,7 @@ export const PlanetsTable: FC<IPlanetsTableProps> = (props) => {
 
               <td className="table_manage_buttons">
                 <Button
-                  label="Подбробнее"
+                  label="Подробнее"
                   style="info"
                   isFullWidth={true}
                   handler={() =>

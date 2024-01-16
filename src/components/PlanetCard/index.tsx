@@ -21,7 +21,7 @@ export const PlanetCard: FC<IPlanetCardProps> = (props) => {
   if (isAuth) {
     return (
       <div id={name} className="card">
-        <Planet color1={color1} color2={color2} />
+        <Planet color1={color1} color2={color2} width="50%" />
         <div className="content">
           <h3>{name}</h3>
           <Link to={"/planet/" + id} state={{ from: name, fromPage: fromPage }}>
@@ -67,10 +67,7 @@ export const PlanetCard: FC<IPlanetCardProps> = (props) => {
             </>
           )}
           {!String(loadingId) && (
-            <button
-              className="add_button"
-              onClick={handler}
-            >
+            <button className="add_button" onClick={handler}>
               {!isDeleteMode ? "Добавить" : "Удалить"}
             </button>
           )}
@@ -86,7 +83,7 @@ export const PlanetCard: FC<IPlanetCardProps> = (props) => {
       className="card"
       state={{ from: name, fromPage: fromPage }}
     >
-      <Planet color1={color1} color2={color2} />
+      <Planet color1={color1} color2={color2} width="50%" />
       <div className="content">
         <h3>{name}</h3>
       </div>

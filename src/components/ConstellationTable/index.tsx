@@ -85,7 +85,7 @@ export const ConstellationTable: FC<IConstellationTableProps> = (props) => {
             <th>Дата формирования</th>
             <th>Дата подтверждения</th>
             <th>Статус</th>
-            {isAdmin && <th>Полное имя</th>}
+            {isAdmin && <th>Создатель</th>}
             {isAdmin && <th>Действия</th>}
           </tr>
         </thead>

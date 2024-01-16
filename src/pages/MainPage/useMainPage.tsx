@@ -67,25 +67,6 @@ export const useMainPage = () => {
       });
   };
 
-  const handleGetAllPlanetsClick = () => {
-    dispatch(saveSearchName(""));
-    getPlanetsHandler();
-  };
-
-  function scrollToPlanet() {
-    if (location.state?.planetId) {
-      const planetElement = document.getElementById(location.state?.planetId);
-      const planetsElement = document.getElementById("planets");
-
-      if (planetElement) {
-        planetElement.scrollIntoView({ behavior: "smooth" });
-        navigate(".", { replace: true }); // удаляем state
-      } else {
-        planetsElement?.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  }
-
   const handleAddPlanetCLick = (id: number, name: string) => {
     const loadingTimer = setTimeout(() => {
       setPlanetLoading(id);
@@ -105,6 +86,29 @@ export const useMainPage = () => {
         setPlanetLoading(-1);
       });
   };
+
+  const handleCreateClick = () => {
+    navigate("/create/planet")
+  }
+
+  const handleGetAllPlanetsClick = () => {
+    dispatch(saveSearchName(""));
+    getPlanetsHandler();
+  };
+
+  function scrollToPlanet() {
+    if (location.state?.planetId) {
+      const planetElement = document.getElementById(location.state?.planetId);
+      const planetsElement = document.getElementById("planets");
+
+      if (planetElement) {
+        planetElement.scrollIntoView({ behavior: "smooth" });
+        navigate(".", { replace: true }); // удаляем state
+      } else {
+        planetsElement?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }
 
   const handleSearchNameChange = (e: ChangeEvent) => {
     dispatch(saveSearchName(e.target.value));
@@ -161,5 +165,6 @@ export const useMainPage = () => {
     handleGetAllPlanetsClick,
     handleSearchNameChange,
     handleAddPlanetCLick,
+    handleCreateClick,
   };
 };

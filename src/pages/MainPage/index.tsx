@@ -4,20 +4,22 @@ import { Loader, Navbar, PlanetCard, PlanetsTable } from "../../components";
 import { IPlanetCardProps } from "../../components/PlanetCard/typing";
 import { useMainPage } from "./useMainPage";
 import { Button, Container } from "react-bootstrap";
+import { Button as MyButton } from "../../components";
 
 export const MainPage: FC = () => {
   const {
-    planets,
-    handleSearchPlanetsClick,
-    handleSearchNameChange,
-    handleGetAllPlanetsClick,
-    searchName,
-    planetLoading,
-    isPageActive,
     isAuth,
+    planets,
     isAdmin,
+    searchName,
+    isPageActive,
+    planetLoading,
     planetsTableProps,
+    handleSearchPlanetsClick,
+    handleGetAllPlanetsClick,
+    handleSearchNameChange,
     handleAddPlanetCLick,
+    handleCreateClick,
   } = useMainPage();
 
   return (
@@ -74,7 +76,18 @@ export const MainPage: FC = () => {
           Искать
         </Button>
       </Container>
-      {isAdmin && <PlanetsTable {...planetsTableProps} />}
+      {isAdmin && (
+        <>
+          <PlanetsTable {...planetsTableProps} />
+          <div className="main_add_button">
+            <MyButton
+              label="Создать"
+              isFullWidth={true}
+              handler={handleCreateClick}
+            />
+          </div>
+        </>
+      )}
       {!isAdmin &&
         (isPageActive ? (
           <>

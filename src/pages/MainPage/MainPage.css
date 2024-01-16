@@ -85,6 +85,10 @@ input:active, input:hover, input:focus {
   outline: none;
 }
 
+.main_add_button {
+  padding: 30px;
+}
+
 .button {
   padding: 5px 8px;
   border: 1px solid var(--accent);

@@ -9,10 +9,12 @@ import { LogInForm } from "./LogInForm";
 import { ConstellationTable } from "./ConstellationTable";
 import { Filters } from "./Filters";
 import { PlanetsTable } from "./PlanetsTable";
+import { Button } from "./Button";
 
 export {
   PrivatePages,
   PlanetCard,
+  Button,
   Navbar,
   BreadCrumbs,
   Filters,

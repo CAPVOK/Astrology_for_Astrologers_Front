@@ -15,6 +15,16 @@ export interface IPlanet {
   imageName: string;
 }
 
+export interface ICreatePlanetRequest {
+  name: string;
+  discovered: string | null;
+  mass: string | null;
+  distance: string | null;
+  info: string | null;
+  color1: string;
+  color2: string;
+}
+
 export interface IGetPlanetsResponse {
   constellationID: number;
   planets: IPlanet[];
@@ -23,4 +33,3 @@ export interface IGetPlanetsResponse {
 export interface IGetPlanetByIdResponse {
   planet: IPlanet;
 }
-

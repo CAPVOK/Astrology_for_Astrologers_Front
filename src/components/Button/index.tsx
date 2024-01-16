@@ -14,7 +14,7 @@ export const Button: FC<IButtonProps> = (props) => {
   const getBorderColor = () => {
     switch (style) {
       case "info":
-        return " #006eff";
+        return " #57a0ff";
       case "error":
         return "#e80909";
       case "success":

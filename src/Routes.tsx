@@ -2,13 +2,13 @@ import { RouteObject, useRoutes } from "react-router-dom";
 import {
   AuthPage,
   ConstellationPage,
+  CreatePlanetPage,
   HistoryPage,
   MainPage,
   NotFoundPage,
   PlanetPage,
 } from "./pages";
-import { PrivatePages } from "./components";
-import { MainLayout } from "./components/MainLayout";
+import { PrivatePages, MainLayout } from "./components";
 
 export const AppRoutes = () => {
   const routes: RouteObject[] = [
@@ -25,6 +25,10 @@ export const AppRoutes = () => {
             {
               path: "/constellations/:id",
               element: <ConstellationPage />,
+            },
+            {
+              path: "/create/planet",
+              element: <CreatePlanetPage />,
             },
           ],
         },

@@ -1,10 +1,7 @@
-import { AxiosError, AxiosResponse, isAxiosError } from "axios";
+import { isAxiosError } from "axios";
 import { store } from "../store";
 import { addNotification } from "../store/slices/appSlice";
 import { ACCESS_TOKEN_NAME } from "../../env";
-
-export const responseBody = (response: AxiosResponse): AxiosError =>
-  response.data;
 
 export const handleError = (error: unknown): never => {
   if (isAxiosError(error)) {
@@ -26,6 +23,3 @@ export const getToken = () => {
   return localToken || "";
 };
 
-export interface IErrorResponse {
-  error: string;
-}

@@ -1,6 +1,11 @@
 import axios from "axios";
 import { getToken, handleError } from "..";
-import { IGetPlanetByIdResponse, IGetPlanetsResponse } from "./typing";
+import {
+  ICreatePlanetRequest,
+  IGetPlanetByIdResponse,
+  IGetPlanetsResponse,
+  IPlanet,
+} from "./typing";
 import { store } from "../../store";
 import { refreshApp } from "../../store/slices/appSlice";
 import { refreshUser, saveConstellationId } from "../../store/slices/userSlice";
@@ -62,6 +67,51 @@ export const getPlanetById = async (
   try {
     const response = await planetApi.get<IGetPlanetByIdResponse>(`/${id}`);
     console.log("core getPlanetById", response.data);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const updatePlanetById = async (id: number | string, body: IPlanet) => {
+  try {
+    const response = await planetApi.put<IGetPlanetByIdResponse>(
+      `/${id}`,
+      body
+    );
+    console.log("core updatePlanetById", response.data);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const createPlanet = async (body: ICreatePlanetRequest) => {
+  try {
+    const response = await planetApi.post<IGetPlanetsResponse>(`/`, body);
+    console.log("core createPlanet", response.data);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const addPlanetPhotoById = async (
+  id: number | string,
+  body: unknown
+) => {
+  try {
+    const response = await planetApi.post<IGetPlanetByIdResponse>(
+      `/${id}/image`,
+      body,
+      {
+        headers: {
+          "Content-Type":
+            "multipart/form-data; boundary=<calculated when request is sent>",
+        },
+      }
+    );
+    console.log("core addPlanetPhoto", response.data);
     return response.data;
   } catch (error) {
     handleError(error);
