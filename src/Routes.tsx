@@ -9,6 +9,7 @@ import {
   PlanetPage,
 } from "./pages";
 import { PrivatePages, MainLayout } from "./components";
+import { ROUTES } from "./App.constants";
 
 export const AppRoutes = () => {
   const routes: RouteObject[] = [
@@ -19,26 +20,26 @@ export const AppRoutes = () => {
           element: <PrivatePages />,
           children: [
             {
-              path: "/constellations",
+              path: ROUTES.CONSTELLATIONS,
               element: <HistoryPage />,
             },
             {
-              path: "/constellations/:id",
+              path: `${ROUTES.CONSTELLATIONS}/:id`,
               element: <ConstellationPage />,
             },
             {
-              path: "/create/planet",
+              path: ROUTES.CREATE_PLANET,
               element: <CreatePlanetPage />,
             },
           ],
         },
         {
-          path: "/",
+          path: ROUTES.HOME,
           index: true,
           element: <MainPage />,
         },
         {
-          path: "/planet/:id",
+          path: `${ROUTES.PLANET}/:id`,
           element: <PlanetPage />,
         },
         /* {
@@ -46,7 +47,7 @@ export const AppRoutes = () => {
           element: <AboutPage />,
         }, */
         {
-          path: "/auth",
+          path: ROUTES.AUTH,
           element: <AuthPage />,
         },
         {

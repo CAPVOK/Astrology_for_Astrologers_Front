@@ -3,6 +3,7 @@ import "./PlanetsTable.css";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Button";
 import { IPlanet } from "../../core/api/planets/typing";
+import { COLOR_PALETE, ROUTES } from "../../App.constants";
 
 export interface IPlanetsTableProps {
   dataRows: IPlanet[];
@@ -23,8 +24,8 @@ export const PlanetsTable: FC<IPlanetsTableProps> = (props) => {
     );
 
   const statusColors = {
-    удалена: "#e80909",
-    активна: "#4eff26",
+    удалена: COLOR_PALETE.error,
+    активна: COLOR_PALETE.success,
   };
 
   const getStatusColor = (status: string) => {
@@ -56,17 +57,17 @@ export const PlanetsTable: FC<IPlanetsTableProps> = (props) => {
               <td className="table_manage_buttons">
                 <Button
                   label="Подробнее"
-                  style="info"
+                  style={COLOR_PALETE.info}
                   isFullWidth={true}
                   handler={() =>
-                    navigate(`/planet/${row.planetId}`, {
-                      state: { prevPage: "/", from: row.name },
+                    navigate(`${ROUTES.PLANET}/${row.planetId}`, {
+                      state: { prevPage: ROUTES.HOME, from: row.name },
                     })
                   }
                 />
                 <Button
                   label="Удалить"
-                  style="error"
+                  style={COLOR_PALETE.error}
                   isFullWidth={true}
                   handler={() => deleteHandler(row.planetId)}
                   isLoading={row.planetId === buttonLoadingId}

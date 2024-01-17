@@ -11,7 +11,7 @@ export const AboutPage: FC = () => {
     <div>
       <BreadCrumbs
         location={location}
-        name="О нас"
+        crumbs={[{ label: "О нас", path: "" }]}
         isCloseButton={false}
         isFixed={false}
       />

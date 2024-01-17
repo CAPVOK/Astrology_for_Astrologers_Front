@@ -5,6 +5,7 @@ import { selectUser } from "../../core/store/slices/selectors";
 import { useSelector } from "react-redux";
 import { LogInForm } from "../../components/LogInForm";
 import { BreadCrumbs } from "../../components";
+import { ROUTES } from "../../App.constants";
 
 export const AuthPage: FC = () => {
   const { isAuth } = useSelector(selectUser);
@@ -17,7 +18,7 @@ export const AuthPage: FC = () => {
   };
 
   if (isAuth)
-    return <Navigate to={location.state?.from || "/"} replace={true} />;
+    return <Navigate to={location.state?.from || ROUTES.HOME} replace={true} />;
 
   return (
     <div className="auth_page">

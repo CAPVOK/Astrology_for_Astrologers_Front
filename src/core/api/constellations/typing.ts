@@ -7,6 +7,7 @@ export interface IConstellation {
   formationDate: string | null;
   confirmationDate: string | null;
   status: CONST_STATUS;
+  moderatorName: string;
   fullName: string;
 }
 

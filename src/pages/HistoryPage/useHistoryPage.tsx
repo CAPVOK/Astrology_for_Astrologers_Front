@@ -23,6 +23,7 @@ import {
   saveSearchStatus,
   saveStartFormationDate,
 } from "../../core/store/slices/appSlice";
+import { ROUTES } from "../../App.constants";
 
 export const useHistoryPage = () => {
   const location = useLocation();
@@ -152,7 +153,7 @@ export const useHistoryPage = () => {
 
   const crumbsProps: IBreadcrumpsProps = {
     location: location,
-    crumbs: [{ label: "Созвездия", path: "/constellations" }],
+    crumbs: [{ label: "Созвездия", path: ROUTES.CONSTELLATIONS }],
     isFixed: false,
     isCloseButton: false,
   };

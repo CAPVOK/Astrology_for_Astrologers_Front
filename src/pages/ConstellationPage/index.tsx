@@ -6,6 +6,7 @@ import { Container } from "react-bootstrap";
 import { IPlanetCardProps } from "../../components/PlanetCard/typing";
 import { Button } from "../../components/Button";
 import { useConstellationPage } from "./useConstellationPage";
+import { COLOR_PALETE, ROUTES } from "../../App.constants";
 
 export const ConstellationPage: FC = () => {
   const {
@@ -129,21 +130,20 @@ export const ConstellationPage: FC = () => {
             {!constellationData.formationDate &&
               (isChangeMode ? (
                 <>
-                  {" "}
                   <Button
                     isLoading={editButtonLoading}
                     handler={handleUpdateConstellation}
                     label="Сохранить изменения"
                   />
                   <Button
-                    style="info"
+                    style={COLOR_PALETE.error}
                     handler={handleReset}
                     label="Сбросить изменения"
                   />
                 </>
               ) : (
                 <Button
-                  style="info"
+                  style={COLOR_PALETE.info}
                   handler={handleChangeMode}
                   label="Изменить"
                 />
@@ -159,7 +159,7 @@ export const ConstellationPage: FC = () => {
             )}
             {!constellationData.formationDate && !isChangeMode && (
               <Button
-                style="error"
+                style={COLOR_PALETE.error}
                 isLoading={deleteButtonLoading}
                 label="Удалить"
                 handler={handleDeleteConstellation}
@@ -180,7 +180,7 @@ export const ConstellationPage: FC = () => {
                   loadingId: planetLoading,
                   handler: () =>
                     handlePlanetDelete(Number(planet.id), planet.name),
-                  fromPage: `/constellations/${id}`,
+                  fromPage: `${ROUTES.CONSTELLATIONS}/${id}`,
                 };
                 return <PlanetCard key={index} {...props} />;
               })}

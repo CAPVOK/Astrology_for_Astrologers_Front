@@ -12,6 +12,7 @@ import { SliderPicker } from "react-color";
 import { Button } from "../../components/Button";
 import { addNotification } from "../../core/store/slices/appSlice";
 import { ChangeEvent as MyChangeEvent } from "../../App.typing";
+import { COLOR_PALETE, ROUTES } from "../../App.constants";
 
 export const CreatePlanetPage: FC = () => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
@@ -22,8 +23,8 @@ export const CreatePlanetPage: FC = () => {
     mass: "",
     distance: "",
     info: "",
-    color1: "#ababab",
-    color2: "#8a8a8a",
+    color1: COLOR_PALETE.default1,
+    color2: COLOR_PALETE.default2,
     status: "",
     imageName: "",
   });
@@ -44,14 +45,14 @@ export const CreatePlanetPage: FC = () => {
       mass: formData.mass || "Неизвестно",
       distance: formData.distance || "Неизвестно",
       info: formData.info || "Неизвестно",
-      color1: formData.color1 || "#ababab",
-      color2: formData.color2 || "#8a8a8a",
+      color1: formData.color1 || COLOR_PALETE.default1,
+      color2: formData.color2 || COLOR_PALETE.default2,
     })
       .then(() => {
         dispatch(addNotification({ message: "Планета создана" }));
         setIsButtonLoading(false);
         clearTimeout(loadingTimer);
-        navigate("/");
+        navigate(ROUTES.HOME);
       })
       .catch(() => {
         setIsButtonLoading(false);
@@ -79,7 +80,7 @@ export const CreatePlanetPage: FC = () => {
             <div className="blog admin">
               <div className="planet_page_nav">
                 <input
-                  style={{ backgroundColor: "#292929" }}
+                  style={{ backgroundColor: COLOR_PALETE.gray }}
                   type="text"
                   name="name"
                   value={formData.name}

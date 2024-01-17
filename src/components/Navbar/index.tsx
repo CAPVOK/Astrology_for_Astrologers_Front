@@ -10,6 +10,7 @@ import { selectApp, selectUser } from "../../core/store/slices/selectors";
 import { logout } from "../../core/api/auth";
 import { Button, Form } from "react-bootstrap";
 import { saveisAdmin } from "../../core/store/slices/appSlice";
+import { COLOR_PALETE, ROUTES } from "../../App.constants";
 
 export const Navbar: FC = () => {
   const { constellationId, isAuth, userName, role } = useSelector(selectUser);
@@ -27,7 +28,7 @@ export const Navbar: FC = () => {
       >
         <Container>
           <NavbarComp.Brand>
-            <Link to={"/"}>
+            <Link to={ROUTES.HOME}>
               <PlanetIcon fill="white" height="32" width="40" />
             </Link>
           </NavbarComp.Brand>
@@ -50,7 +51,7 @@ export const Navbar: FC = () => {
                     display: "flex",
                     alignItems: "center",
                     marginRight: "10px",
-                    gap: "5px"
+                    gap: "5px",
                   }}
                   type="switch"
                   id="custom-switch"
@@ -61,7 +62,10 @@ export const Navbar: FC = () => {
               )}
             </div>
           ) : (
-            <Link to="/auth" style={{ color: "#FB2576", marginRight: "10px" }}>
+            <Link
+              to={ROUTES.AUTH}
+              style={{ color: COLOR_PALETE.accent, marginRight: "10px" }}
+            >
               Войти
             </Link>
           )}
@@ -71,16 +75,9 @@ export const Navbar: FC = () => {
           />
           <NavbarComp.Collapse id="basic-navbar-nav">
             <Nav className="me-auto gap-4 gap-sm-3">
-              {/*  <NavLink
-                to="/"
-                className="text-white"
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                Главная
-              </NavLink> */}
               {isAuth && (
                 <NavLink
-                  to="/constellations"
+                  to={ROUTES.CONSTELLATIONS}
                   className="text-white"
                   style={{ display: "flex", alignItems: "center" }}
                 >
@@ -91,7 +88,7 @@ export const Navbar: FC = () => {
                 location.pathname === "/" &&
                 (constellationId !== 0 ? (
                   <NavLink
-                    to={`/constellations/${constellationId}`}
+                    to={`${ROUTES.CONSTELLATIONS}/${constellationId}`}
                     className="text-white"
                     state={{ from: location.pathname }}
                     style={{ display: "flex", alignItems: "center" }}

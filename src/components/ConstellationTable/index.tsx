@@ -6,6 +6,7 @@ import {
 } from "../../core/api/constellations/typing";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Button";
+import { COLOR_PALETE, ROUTES } from "../../App.constants";
 
 export interface IConstellationTableProps {
   dataRows: IConstellation[] | undefined | null;
@@ -41,11 +42,11 @@ export const ConstellationTable: FC<IConstellationTableProps> = (props) => {
     completed: "подтверждено",
   };
   const statusColors = {
-    created: "черновик",
-    canceled: "#e80909",
-    inprogress: "в прогрессе",
-    deleted: "#e80909",
-    completed: "#4eff26",
+    created: COLOR_PALETE.lightGray,
+    canceled: COLOR_PALETE.error,
+    inprogress: COLOR_PALETE.white,
+    deleted: COLOR_PALETE.error,
+    completed: COLOR_PALETE.success,
   };
 
   const getNormalDate = (date: string) => {
@@ -64,8 +65,8 @@ export const ConstellationTable: FC<IConstellationTableProps> = (props) => {
 
   const handleRowClick = (id: number) => {
     if (isAdmin) return;
-    navigate(`/constellations/${id}`, {
-      state: { prevPage: "/constellations" },
+    navigate(`${ROUTES.CONSTELLATIONS}/${id}`, {
+      state: { prevPage: ROUTES.CONSTELLATIONS },
     });
   };
 
@@ -86,6 +87,7 @@ export const ConstellationTable: FC<IConstellationTableProps> = (props) => {
             <th>Дата подтверждения</th>
             <th>Статус</th>
             {isAdmin && <th>Создатель</th>}
+            {isAdmin && <th>Модератор</th>}
             {isAdmin && <th>Действия</th>}
           </tr>
         </thead>
@@ -101,28 +103,55 @@ export const ConstellationTable: FC<IConstellationTableProps> = (props) => {
               <td>{getNormalDate(row.startDate)}</td>
               <td>{getNormalDate(row.endDate)}</td>
               <td>{getNormalDateTime(row.creationDate)}</td>
-              <td>{getNormalDateTime(row.formationDate || "")}</td>
-              <td>{getNormalDateTime(row.confirmationDate || "")}</td>
+              <td
+                style={{
+                  color: row.formationDate
+                    ? COLOR_PALETE.white
+                    : COLOR_PALETE.lightGray,
+                }}
+              >
+                {getNormalDateTime(row.formationDate || "")}
+              </td>
+              <td
+                style={{
+                  color: row.confirmationDate
+                    ? COLOR_PALETE.white
+                    : COLOR_PALETE.lightGray,
+                }}
+              >
+                {getNormalDateTime(row.confirmationDate || "")}
+              </td>
               <td style={{ color: getStatusColor(row.status) }}>
                 {statusLabel[row.status]}
               </td>
               {isAdmin && <td>{row.fullName}</td>}
+              {isAdmin && (
+                <td
+                  style={{
+                    color: row.moderatorName
+                      ? COLOR_PALETE.white
+                      : COLOR_PALETE.lightGray,
+                  }}
+                >
+                  {row.moderatorName || "Отсутствует"}
+                </td>
+              )}
               {isAdmin && completeHandler && (
                 <td className="table_manage_buttons">
                   <Button
                     label="Подбробнее"
-                    style="info"
+                    style={COLOR_PALETE.info}
                     isFullWidth={true}
                     handler={() =>
-                      navigate(`/constellations/${row.id}`, {
-                        state: { prevPage: "/constellations" },
+                      navigate(`${ROUTES.CONSTELLATIONS}/${row.id}`, {
+                        state: { prevPage: ROUTES.CONSTELLATIONS },
                       })
                     }
                   />
 
                   <Button
                     label="Подтвердить"
-                    style="success"
+                    style={COLOR_PALETE.success}
                     isFullWidth={true}
                     handler={() =>
                       completeHandler(row.id, CONST_STATUS.COMPLETED)
@@ -134,7 +163,7 @@ export const ConstellationTable: FC<IConstellationTableProps> = (props) => {
                   />
                   <Button
                     label="Отменить"
-                    style="error"
+                    style={COLOR_PALETE.error}
                     isFullWidth={true}
                     handler={() =>
                       completeHandler(row.id, CONST_STATUS.CANCELED)

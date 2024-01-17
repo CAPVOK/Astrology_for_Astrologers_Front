@@ -2,6 +2,7 @@ import { FC } from "react";
 import "./Filters.css";
 import { CONST_STATUS } from "../../core/api/constellations/typing";
 import { ChangeEvent } from "../../App.typing";
+import { COLOR_PALETE } from "../../App.constants";
 export interface IFiltersProps {
   handleStatusChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleDateChange: (e: ChangeEvent) => void;
@@ -58,7 +59,7 @@ export const Filters: FC<IFiltersProps> = (props) => {
         <div className="item">
           <p>Название:</p>
           <input
-          style={{backgroundColor: "#292929"}}
+            style={{ backgroundColor: COLOR_PALETE.gray }}
             type="text"
             name="constName"
             value={selectedName}

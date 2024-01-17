@@ -16,6 +16,7 @@ import { Planet } from "../../components/Planet";
 import { SliderPicker } from "react-color";
 import { Button } from "../../components/Button";
 import { addNotification } from "../../core/store/slices/appSlice";
+import { COLOR_PALETE, ROUTES } from "../../App.constants";
 
 export const PlanetPage: FC = () => {
   const { id } = useParams();
@@ -31,8 +32,8 @@ export const PlanetPage: FC = () => {
     mass: "",
     distance: "",
     info: "",
-    color1: "#ababab",
-    color2: "#8a8a8a",
+    color1: COLOR_PALETE.default1,
+    color2: COLOR_PALETE.default2,
     status: "",
     imageName: "",
   });
@@ -117,7 +118,7 @@ export const PlanetPage: FC = () => {
 
   const isCrumbs =
     location.state?.fromPage &&
-    location.state?.fromPage.includes("/constellations");
+    location.state?.fromPage.includes(ROUTES.CONSTELLATIONS);
 
   if (!planetData || !planetData.name) {
     return (
@@ -215,8 +216,7 @@ export const PlanetPage: FC = () => {
                 </div>
                 <div className="image_buttons">
                   <Form.Control
-                    style={{
-                    }}
+                    style={{}}
                     type="file"
                     name="img"
                     onChange={(e) =>
