@@ -11,10 +11,13 @@
 }
 
 .stella_table .table_manage_buttons {
+  flex-grow: 1;
+  flex-basis: auto;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  justify-content: center;
   align-items: center;
+  gap: 5px;
 }
 
 .stella_table table {
@@ -24,6 +27,7 @@
 .stella_table td:first-child {
   color: var(--accent);
 }
+
 .stella_table tr {
   border-top: 1px solid var(--gray);
 }

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface IUser {
   userName: string;
   isAuth: boolean;
-  role: string;
+  isAdmin: boolean;
   constellationId: number;
 }
 
@@ -11,7 +11,7 @@ const initialState: IUser = {
   isAuth: false,
   userName: "",
   constellationId: 0,
-  role: "",
+  isAdmin: false,
 };
 
 export const userSlice = createSlice({
@@ -22,12 +22,12 @@ export const userSlice = createSlice({
       state.isAuth = false;
       state.constellationId = 0;
       state.userName = "";
-      state.role = "";
+      state.isAdmin = false;
     },
     saveUser: (state, action: PayloadAction<IUser>) => {
       state.userName = action.payload.userName;
       state.isAuth = action.payload.isAuth;
-      state.role = action.payload.role;
+      state.isAdmin = action.payload.isAdmin;
       state.constellationId = action.payload.constellationId;
     },
     saveConstellationId: (state, action: PayloadAction<number>) => {

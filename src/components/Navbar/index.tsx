@@ -5,18 +5,15 @@ import Nav from "react-bootstrap/Nav";
 import NavbarComp from "react-bootstrap/Navbar";
 import { PlanetIcon } from "../icons";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "../../core/store";
-import { selectApp, selectUser } from "../../core/store/slices/selectors";
+import { useSelector } from "../../core/store";
+import { selectUser } from "../../core/store/slices/selectors";
 import { logout } from "../../core/api/auth";
-import { Button, Form } from "react-bootstrap";
-import { saveisAdmin } from "../../core/store/slices/appSlice";
+import { Button } from "react-bootstrap";
 import { COLOR_PALETE, ROUTES } from "../../App.constants";
 
 export const Navbar: FC = () => {
-  const { constellationId, isAuth, userName, role } = useSelector(selectUser);
-  const { isAdmin } = useSelector(selectApp);
+  const { constellationId, isAuth, userName } = useSelector(selectUser);
 
-  const dispatch = useDispatch();
   const location = useLocation();
 
   return (
@@ -44,22 +41,6 @@ export const Navbar: FC = () => {
               >
                 Выйти
               </Button>
-              {role === "модератор" && (
-                <Form.Check
-                  style={{
-                    margin: "0",
-                    display: "flex",
-                    alignItems: "center",
-                    marginRight: "10px",
-                    gap: "5px",
-                  }}
-                  type="switch"
-                  id="custom-switch"
-                  label="Модератор"
-                  checked={isAdmin}
-                  onChange={() => dispatch(saveisAdmin(!isAdmin))}
-                />
-              )}
             </div>
           ) : (
             <Link

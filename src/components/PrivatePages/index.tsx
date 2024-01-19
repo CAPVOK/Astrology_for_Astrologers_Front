@@ -4,6 +4,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { IPrivatePagesProps } from "./typing";
 import { useSelector } from "../../core/store";
 import { selectUser } from "../../core/store/slices/selectors";
+import { ROUTES } from "../../App.constants";
 
 export const PrivatePages: FC<IPrivatePagesProps> = (props) => {
   const { children } = props;
@@ -19,7 +20,7 @@ export const PrivatePages: FC<IPrivatePagesProps> = (props) => {
   if (!isAuth) {
     return (
       <Navigate
-        to="/auth"
+        to={ROUTES.AUTH}
         state={{
           from: location.pathname,
         }}

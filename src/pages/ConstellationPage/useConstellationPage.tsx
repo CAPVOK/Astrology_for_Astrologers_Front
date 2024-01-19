@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   CONST_STATUS,
@@ -16,6 +16,7 @@ import { deletePlanetByIdFromConstellation } from "../../core/api/planets";
 import { addNotification } from "../../core/store/slices/appSlice";
 import { ChangeEvent } from "../../App.typing";
 import { IBreadcrumpsProps } from "../../components/BreadCrumbs/typing";
+import { COLOR_PALETE, ROUTES } from "../../App.constants";
 
 export const useConstellationPage = () => {
   const { id } = useParams();
@@ -31,24 +32,26 @@ export const useConstellationPage = () => {
   const [deleteButtonLoading, setDeleteButtonLoading] = useState(false);
   const [formButtonLoading, setFormButtonLoading] = useState(false);
   const [editButtonLoading, setEditButtonLoading] = useState(false);
-  const [isChangeMode, setChangeMode] = useState(false);
   const [formData, setFormData] = useState<IUpdateConstellationFormProps>({
     name: "",
     startDate: "",
     endDate: "",
   });
-  const defaultConstData = useRef<IConstWithPlanets>();
 
-  useEffect(() => {
+  const loadConstellationData = () => {
     if (id) {
       getConstellationById(id).then((data) => {
         if (data) {
           setConstellationDate(data.constellation);
           setFormData(data.constellation);
-          defaultConstData.current = data.constellation;
         }
       });
     }
+  }
+
+  useEffect(() => {
+    loadConstellationData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handlePlanetDelete = (id: number, name: string) => {
@@ -56,12 +59,8 @@ export const useConstellationPage = () => {
       setPlanetLoading(id);
     }, TIMER);
     deletePlanetByIdFromConstellation(id)
-      .then((data) => {
-        if (data) {
-          setConstellationDate(data.constellation);
-          setFormData(data.constellation);
-          defaultConstData.current = data.constellation;
-        }
+      .then(() => {
+        loadConstellationData();
         setPlanetLoading(-1);
         clearTimeout(loadingTimer);
         dispatch(
@@ -82,12 +81,8 @@ export const useConstellationPage = () => {
       setFormButtonLoading(true);
     }, TIMER);
     statusConstellationById(id, status)
-      .then((data) => {
-        if (data) {
-          setConstellationDate(data.constellation);
-          setFormData(data.constellation);
-          defaultConstData.current = data.constellation;
-        }
+      .then(() => {
+        loadConstellationData();
         setFormButtonLoading(false);
         clearTimeout(loadingTimer);
         dispatch(
@@ -111,12 +106,12 @@ export const useConstellationPage = () => {
         .then(() => {
           setDeleteButtonLoading(false);
           clearTimeout(loadingTimer);
-          navigate("/", { replace: true });
           dispatch(
             addNotification({
               message: `Созвездие удалено`,
             })
           );
+          navigate("/", { replace: true });
         })
         .catch(() => {
           setDeleteButtonLoading(false);
@@ -138,15 +133,10 @@ export const useConstellationPage = () => {
       setEditButtonLoading(true);
     }, TIMER);
     updateConstellationById(id, formData)
-      .then((data) => {
-        if (data) {
-          setConstellationDate(data.constellation);
-          setFormData(data.constellation);
-          defaultConstData.current = data.constellation;
-        }
+      .then(() => {
+        loadConstellationData();
         setEditButtonLoading(false);
         clearTimeout(loadingTimer);
-        setChangeMode(false);
         dispatch(
           addNotification({
             message: `Созвездие обновлено`,
@@ -154,14 +144,9 @@ export const useConstellationPage = () => {
         );
       })
       .catch(() => {
-        setChangeMode(false);
         setEditButtonLoading(false);
         clearTimeout(loadingTimer);
       });
-  };
-
-  const handleChangeMode = () => {
-    setChangeMode(true);
   };
 
   function convertToCalendarDate(dateString: string) {
@@ -186,13 +171,6 @@ export const useConstellationPage = () => {
     const isoDate = new Date(year, month - 1, day).toISOString();
     return isoDate;
   }
-
-  const handleReset = () => {
-    if (defaultConstData.current) {
-      setFormData(defaultConstData.current);
-      setChangeMode(false);
-    }
-  };
 
   useEffect(() => {
     if (
@@ -223,11 +201,10 @@ export const useConstellationPage = () => {
   };
 
   const statusColors = {
-    created: "#858585",
-    canceled: "#e80909",
-    inprogress: "white",
-    deleted: "#e80909",
-    completed: "#4eff26",
+    created: COLOR_PALETE.lightGray,
+    canceled: COLOR_PALETE.error,
+    inprogress: COLOR_PALETE.white,
+    completed: COLOR_PALETE.success,
   };
   const statusLabel = {
     created: "черновик",
@@ -237,6 +214,19 @@ export const useConstellationPage = () => {
     completed: "подтверждено",
   };
 
+  const isChangedData = () => {
+    if (!constellationData) return false;
+    const element = Object.keys(formData).find(
+      (key) =>
+        formData[key as keyof IUpdateConstellationFormProps] !==
+        constellationData[key as keyof IUpdateConstellationFormProps]
+    );
+    if (element) return true;
+    return false;
+  };
+
+  const isEditButtonActive = !editButtonLoading && isChangedData();
+
   const getStatusColor = (status: string) => {
     return statusColors[status as keyof typeof statusColors];
   };
@@ -244,10 +234,9 @@ export const useConstellationPage = () => {
   const crumbs = !constellationData?.formationDate
     ? [{ label: "Мое созвездие", path: "" }]
     : [
-        { label: "Созвездия", path: "/constellations" },
+        { label: "Созвездия", path: ROUTES.CONSTELLATIONS },
         { label: constellationData.name, path: "" },
       ];
-
   const breadCrumbsProps: IBreadcrumpsProps = {
     location: location,
     crumbs: crumbs,
@@ -258,9 +247,7 @@ export const useConstellationPage = () => {
 
   return {
     getDate,
-    handleReset,
     getStatusColor,
-    handleChangeMode,
     handlePlanetDelete,
     hadleChangeFormData,
     convertToCalendarDate,
@@ -268,12 +255,11 @@ export const useConstellationPage = () => {
     handleDeleteConstellation,
     handleConstellationChangeStatus,
     deleteButtonLoading,
+    isEditButtonActive,
     breadCrumbsProps,
     formButtonLoading,
-    editButtonLoading,
     constellationData,
     planetLoading,
-    isChangeMode,
     statusLabel,
     formData,
     id,

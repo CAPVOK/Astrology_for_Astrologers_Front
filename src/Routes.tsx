@@ -1,12 +1,13 @@
 import { RouteObject, useRoutes } from "react-router-dom";
 import {
-  AuthPage,
   ConstellationPage,
   CreatePlanetPage,
   HistoryPage,
+  LoginPage,
   MainPage,
   NotFoundPage,
   PlanetPage,
+  RegisterPage,
 } from "./pages";
 import { PrivatePages, MainLayout } from "./components";
 import { ROUTES } from "./App.constants";
@@ -46,9 +47,17 @@ export const AppRoutes = () => {
           path: "/about",
           element: <AboutPage />,
         }, */
-        {
+        /* {
           path: ROUTES.AUTH,
           element: <AuthPage />,
+        }, */
+        {
+          path: ROUTES.REGISTER,
+          element: <RegisterPage />,
+        },
+        {
+          path: ROUTES.LOGIN,
+          element: <LoginPage />,
         },
         {
           path: "*",

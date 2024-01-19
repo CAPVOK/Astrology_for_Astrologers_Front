@@ -15,7 +15,7 @@ import { IFiltersProps } from "../../components/Filters";
 import { ChangeEvent } from "../../App.typing";
 import { useDispatch } from "../../core/store";
 import { useSelector } from "react-redux";
-import { selectApp } from "../../core/store/slices/selectors";
+import { selectApp, selectUser } from "../../core/store/slices/selectors";
 import {
   addNotification,
   saveEndFormationDate,
@@ -43,8 +43,8 @@ export const useHistoryPage = () => {
     endFromationDate: selectedEndDate,
     searchStatus: selectedStatus,
     searchConstName,
-    isAdmin,
   } = useSelector(selectApp);
+  const { isAdmin } = useSelector(selectUser);
 
   const TIMER_POOL = 1000;
 
@@ -138,7 +138,7 @@ export const useHistoryPage = () => {
       prevConstellations.current = constellations;
     }
     const newConstellations = constellations.filter((stella) =>
-      stella.name.includes(filterName)
+      stella.fullName.toLowerCase().includes(filterName.toLowerCase())
     );
     setConstellations(newConstellations);
   }

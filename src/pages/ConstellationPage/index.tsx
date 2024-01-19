@@ -11,9 +11,7 @@ import { COLOR_PALETE, ROUTES } from "../../App.constants";
 export const ConstellationPage: FC = () => {
   const {
     getDate,
-    handleReset,
     getStatusColor,
-    handleChangeMode,
     handlePlanetDelete,
     hadleChangeFormData,
     convertToCalendarDate,
@@ -21,12 +19,11 @@ export const ConstellationPage: FC = () => {
     handleDeleteConstellation,
     handleConstellationChangeStatus,
     deleteButtonLoading,
+    isEditButtonActive,
     breadCrumbsProps,
     formButtonLoading,
-    editButtonLoading,
     constellationData,
     planetLoading,
-    isChangeMode,
     statusLabel,
     formData,
     id,
@@ -46,50 +43,30 @@ export const ConstellationPage: FC = () => {
           <div className="constellation_content">
             <div className="info">
               <h3>Название:</h3>
-              {isChangeMode ? (
-                <input
-                  type="text"
-                  onChange={hadleChangeFormData}
-                  name="name"
-                  value={formData.name}
-                />
-              ) : (
-                <p>{constellationData?.name}</p>
-              )}
+              <input
+                type="text"
+                onChange={hadleChangeFormData}
+                name="name"
+                value={formData.name}
+              />
             </div>
             <div className="info">
               <h3>Дата начала:</h3>
-              {isChangeMode ? (
-                <input
-                  type="date"
-                  onChange={hadleChangeFormData}
-                  name="startDate"
-                  value={convertToCalendarDate(formData.startDate)}
-                />
-              ) : (
-                <p>
-                  {getDate(
-                    constellationData?.startDate || ""
-                  ).toLocaleDateString()}
-                </p>
-              )}
+              <input
+                type="date"
+                onChange={hadleChangeFormData}
+                name="startDate"
+                value={convertToCalendarDate(formData.startDate)}
+              />
             </div>
             <div className="info">
               <h3>Дата конца:</h3>
-              {isChangeMode ? (
-                <input
-                  type="date"
-                  onChange={hadleChangeFormData}
-                  name="endDate"
-                  value={convertToCalendarDate(formData.endDate)}
-                />
-              ) : (
-                <p>
-                  {getDate(
-                    constellationData?.endDate || ""
-                  ).toLocaleDateString()}
-                </p>
-              )}
+              <input
+                type="date"
+                onChange={hadleChangeFormData}
+                name="endDate"
+                value={convertToCalendarDate(formData.endDate)}
+              />
             </div>
             <div className="info">
               <h3>Статус:</h3>
@@ -126,46 +103,31 @@ export const ConstellationPage: FC = () => {
               </div>
             )}
           </div>
-          <div className="constellation_buttons">
-            {!constellationData.formationDate &&
-              (isChangeMode ? (
-                <>
-                  <Button
-                    isLoading={editButtonLoading}
-                    handler={handleUpdateConstellation}
-                    label="Сохранить изменения"
-                  />
-                  <Button
-                    style={COLOR_PALETE.error}
-                    handler={handleReset}
-                    label="Сбросить изменения"
-                  />
-                </>
-              ) : (
+          {!constellationData.formationDate && (
+            <>
+              <div className="constellation_buttons">
                 <Button
+                  isLoading={!isEditButtonActive}
                   style={COLOR_PALETE.info}
-                  handler={handleChangeMode}
+                  handler={handleUpdateConstellation}
                   label="Изменить"
                 />
-              ))}
-            {!constellationData.formationDate && !isChangeMode && (
-              <Button
-                handler={() =>
-                  handleConstellationChangeStatus(CONST_STATUS.INPROGRESS)
-                }
-                isLoading={!isFormButtonActive}
-                label="Сформировать"
-              />
-            )}
-            {!constellationData.formationDate && !isChangeMode && (
-              <Button
-                style={COLOR_PALETE.error}
-                isLoading={deleteButtonLoading}
-                label="Удалить"
-                handler={handleDeleteConstellation}
-              />
-            )}
-          </div>
+                <Button
+                  handler={() =>
+                    handleConstellationChangeStatus(CONST_STATUS.INPROGRESS)
+                  }
+                  isLoading={!isFormButtonActive}
+                  label="Сформировать"
+                />{" "}
+                <Button
+                  style={COLOR_PALETE.error}
+                  isLoading={deleteButtonLoading}
+                  label="Удалить"
+                  handler={handleDeleteConstellation}
+                />
+              </div>
+            </>
+          )}
           {constellationData && !!constellationData.planets?.length ? (
             <Container className="planets" id="planets">
               {constellationData.planets.map((planet, index) => {

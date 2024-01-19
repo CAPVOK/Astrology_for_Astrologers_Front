@@ -137,42 +137,47 @@ export const ConstellationTable: FC<IConstellationTableProps> = (props) => {
                 </td>
               )}
               {isAdmin && completeHandler && (
-                <td className="table_manage_buttons">
-                  <Button
-                    label="Подбробнее"
-                    style={COLOR_PALETE.info}
-                    isFullWidth={true}
-                    handler={() =>
-                      navigate(`${ROUTES.CONSTELLATIONS}/${row.id}`, {
-                        state: { prevPage: ROUTES.CONSTELLATIONS },
-                      })
-                    }
-                  />
+                <td>
+                  <div className="table_manage_buttons">
+                    <Button
+                      label="Подбробнее"
+                      style={COLOR_PALETE.info}
+                      isFullWidth={true}
+                      handler={() =>
+                        navigate(`${ROUTES.CONSTELLATIONS}/${row.id}`, {
+                          state: { prevPage: ROUTES.CONSTELLATIONS },
+                        })
+                      }
+                    />
 
-                  <Button
-                    label="Подтвердить"
-                    style={COLOR_PALETE.success}
-                    isFullWidth={true}
-                    handler={() =>
-                      completeHandler(row.id, CONST_STATUS.COMPLETED)
-                    }
-                    isLoading={
-                      (isCompleteButtonLoading && row.id === buttonLoadingId) ||
-                      row.status !== CONST_STATUS.INPROGRESS
-                    }
-                  />
-                  <Button
-                    label="Отменить"
-                    style={COLOR_PALETE.error}
-                    isFullWidth={true}
-                    handler={() =>
-                      completeHandler(row.id, CONST_STATUS.CANCELED)
-                    }
-                    isLoading={
-                      (isCancelButtonLoading && row.id === buttonLoadingId) ||
-                      row.status !== CONST_STATUS.INPROGRESS
-                    }
-                  />
+                    {row.status == CONST_STATUS.INPROGRESS && (
+                      <Button
+                        label="Подтвердить"
+                        style={COLOR_PALETE.success}
+                        isFullWidth={true}
+                        handler={() =>
+                          completeHandler(row.id, CONST_STATUS.COMPLETED)
+                        }
+                        isLoading={
+                          isCompleteButtonLoading && row.id === buttonLoadingId
+                        }
+                      />
+                    )}
+
+                    {row.status == CONST_STATUS.INPROGRESS && (
+                      <Button
+                        label="Отменить"
+                        style={COLOR_PALETE.error}
+                        isFullWidth={true}
+                        handler={() =>
+                          completeHandler(row.id, CONST_STATUS.CANCELED)
+                        }
+                        isLoading={
+                          isCancelButtonLoading && row.id === buttonLoadingId
+                        }
+                      />
+                    )}
+                  </div>
                 </td>
               )}
             </tr>

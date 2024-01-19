@@ -9,6 +9,7 @@ import {
   IUserLoginData,
   IUserLoginResponseData,
   IUserRegisterData,
+  ROLE,
 } from "./typing";
 import { ACCESS_TOKEN_NAME, USER_NAME, USER_ROLE } from "../../../env";
 
@@ -40,12 +41,13 @@ export const loginUser = async (userData: IUserLoginData) => {
       userData
     );
     const user = response.data;
+    const isModerator = user.role === ROLE.MODERATOR;
     console.log("core loginUser", user);
     store.dispatch(
       saveUser({
         userName: user.fullName,
         isAuth: true,
-        role: user.role,
+        isAdmin: isModerator,
         constellationId: 0,
       })
     );
@@ -66,11 +68,12 @@ export const registerUser = async (userData: IUserRegisterData) => {
     );
     const user = response.data;
     console.log("core registerUser", user);
+    const isModerator = user.role === ROLE.MODERATOR;
     store.dispatch(
       saveUser({
         userName: user.fullName,
         isAuth: true,
-        role: user.role,
+        isAdmin: isModerator,
         constellationId: 0,
       })
     );

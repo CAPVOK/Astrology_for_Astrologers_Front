@@ -17,6 +17,26 @@
   align-items: center;
 }
 
+.planet_table .planet_td {
+  height: 70px;
+  width: 70px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.planet_table .color_td {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.planet_table .color_td *:last-child {
+  width: 40px;
+  height: 20px;
+  background-color: red;
+}
+
 .planet_table table {
   width: 100%;
   border-collapse: collapse;

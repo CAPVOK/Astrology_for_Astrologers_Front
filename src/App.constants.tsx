@@ -16,5 +16,7 @@ export const ROUTES = {
   CONSTELLATIONS: "/constellations",
   PLANET: "/planet",
   CREATE_PLANET: "/create/planet",
-  AUTH: "/auth",
+  AUTH: "/login", // /auth 
+  REGISTER: "/register",
+  LOGIN: "/login",
 };

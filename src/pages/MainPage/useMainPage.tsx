@@ -15,19 +15,21 @@ import {
   saveSearchName,
 } from "../../core/store/slices/appSlice";
 import { IPlanetsTableProps } from "../../components/PlanetsTable";
+import { ROUTES } from "../../App.constants";
 
 export const useMainPage = () => {
   const [planets, setPlanets] = useState<IPlanet[]>([]);
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [planetLoading, setPlanetLoading] = useState(-1);
   const [buttonLoadingId, setButtonLoadingId] = useState(-1);
+  const [isButtonTypeDelete, setIsButtonTypeDelete] = useState(false);
 
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { searchName, isAdmin } = useSelector(selectApp);
-  const { isAuth } = useSelector(selectUser);
+  const { searchName } = useSelector(selectApp);
+  const { isAuth, isAdmin } = useSelector(selectUser);
 
   const TIMER = 250;
 
@@ -68,11 +70,13 @@ export const useMainPage = () => {
   };
 
   const handleAddPlanetCLick = (id: number, name: string) => {
+    setIsButtonTypeDelete(true);
     const loadingTimer = setTimeout(() => {
       setPlanetLoading(id);
     }, TIMER);
     addPlanetByIdToConstellation(id)
       .then(() => {
+        getPlanetsHandler();
         clearTimeout(loadingTimer);
         setPlanetLoading(-1);
         dispatch(
@@ -88,8 +92,8 @@ export const useMainPage = () => {
   };
 
   const handleCreateClick = () => {
-    navigate("/create/planet")
-  }
+    navigate(ROUTES.CREATE_PLANET);
+  };
 
   const handleGetAllPlanetsClick = () => {
     dispatch(saveSearchName(""));
@@ -114,15 +118,13 @@ export const useMainPage = () => {
     dispatch(saveSearchName(e.target.value));
   };
 
-  const doPlanetDeleted = (id: number) => {
+  const handlePlanetDeleted = (id: number) => {
     const loadingTimer = setTimeout(() => {
       setButtonLoadingId(id);
     }, TIMER);
     deletePlanetById(id)
-      .then((data) => {
-        if (data) {
-          setPlanets(data.planets);
-        }
+      .then(() => {
+        getPlanetsHandler();
         dispatch(addNotification({ message: "Планета удалена" }));
         clearTimeout(loadingTimer);
         setButtonLoadingId(-1);
@@ -147,8 +149,10 @@ export const useMainPage = () => {
 
   const planetsTableProps: IPlanetsTableProps = {
     dataRows: planets,
-    deleteHandler: doPlanetDeleted,
+    deleteHandler: handlePlanetDeleted,
     buttonLoadingId: buttonLoadingId,
+    addHandler: handleAddPlanetCLick,
+    isButtonTypeDelete: isButtonTypeDelete,
   };
 
   const isPageActive = !isPageLoading;

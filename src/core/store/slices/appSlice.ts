@@ -8,7 +8,6 @@ export interface IAppData {
   endFromationDate: string;
   searchConstName: string;
   notifications: INotification[];
-  isAdmin: boolean;
 }
 
 export interface INotification {
@@ -23,7 +22,6 @@ const initialState: IAppData = {
   endFromationDate: "",
   searchStatus: "",
   searchConstName: "",
-  isAdmin: false,
   notifications: [],
 };
 
@@ -38,13 +36,9 @@ export const appSlice = createSlice({
       state.startFormationDate = "";
       state.endFromationDate = "";
       state.searchStatus = "";
-      state.isAdmin = false;
     },
     saveSearchName: (state, action: PayloadAction<string>) => {
       state.searchName = action.payload;
-    },
-    saveisAdmin: (state, action: PayloadAction<boolean>) => {
-      state.isAdmin = action.payload;
     },
     saveSearchConstName: (state, action: PayloadAction<string>) => {
       state.searchConstName = action.payload;
@@ -97,7 +91,6 @@ export const {
   saveSearchStatus,
   addNotification,
   saveConstellationParams,
-  saveisAdmin,
   deleteNotification,
   refreshApp,
 } = appSlice.actions;

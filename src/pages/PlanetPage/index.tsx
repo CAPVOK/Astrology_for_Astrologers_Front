@@ -11,7 +11,7 @@ import { IPlanet } from "../../core/api/planets/typing";
 import { BreadCrumbs } from "../../components";
 import unknownIage from "/images/unknown.png";
 import { useDispatch, useSelector } from "../../core/store";
-import { selectApp } from "../../core/store/slices/selectors";
+import { selectUser } from "../../core/store/slices/selectors";
 import { Planet } from "../../components/Planet";
 import { SliderPicker } from "react-color";
 import { Button } from "../../components/Button";
@@ -40,7 +40,7 @@ export const PlanetPage: FC = () => {
 
   const TIMER = 250;
 
-  const { isAdmin } = useSelector(selectApp);
+  const { isAdmin } = useSelector(selectUser);
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -49,11 +49,8 @@ export const PlanetPage: FC = () => {
       setIsButtonLoading(true);
     }, TIMER);
     updatePlanetById(formData.planetId, formData)
-      .then((data) => {
-        if (data) {
-          setPlanetData(data.planet);
-          setFormData(data.planet);
-        }
+      .then(() => {
+        loadPlanetData();
         dispatch(addNotification({ message: "Планета обновлена" }));
         setIsButtonLoading(false);
         clearTimeout(loadingTimer);
@@ -72,11 +69,8 @@ export const PlanetPage: FC = () => {
     const formDataImg = new FormData();
     formDataImg.append("image", img);
     addPlanetPhotoById(formData.planetId, formDataImg)
-      .then((data) => {
-        if (data) {
-          setPlanetData(data.planet);
-          setFormData(data.planet);
-        }
+      .then(() => {
+        loadPlanetData();
         setImg(null);
         setIsPhotoButtonLoading(false);
         clearTimeout(loadingTimer);
@@ -89,7 +83,7 @@ export const PlanetPage: FC = () => {
       });
   };
 
-  useEffect(() => {
+  const loadPlanetData = () => {
     if (id) {
       getPlanetById(id).then((data) => {
         if (data?.planet) {
@@ -98,6 +92,11 @@ export const PlanetPage: FC = () => {
         }
       });
     }
+  }
+
+  useEffect(() => {
+   loadPlanetData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const hadleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
