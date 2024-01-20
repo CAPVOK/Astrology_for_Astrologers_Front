@@ -32,9 +32,6 @@ export const Navbar: FC = () => {
               <NavLink to="/about" className="text-white">
                 О нас
               </NavLink>
-              <NavLink to="/basket" className="text-secondary">
-                Созвездие
-              </NavLink>
             </Nav>
           </NavbarComp.Collapse>
         </Container>

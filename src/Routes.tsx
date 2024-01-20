@@ -2,7 +2,6 @@ import { RouteObject, useRoutes } from "react-router-dom";
 import {
   AboutPage,
   AuthPage,
-  BasketPage,
   MainPage,
   NotFoundPage,
   PlanetPage,
@@ -24,10 +23,10 @@ export const AppRoutes = (props: IGlobalProps) => {
           path: "planet/:id",
           element: <PlanetPage />,
         },
-        {
+        /* {
           path: "basket",
           element: <BasketPage />,
-        },
+        }, */
         {
           path: "about",
           element: <AboutPage />,
