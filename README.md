@@ -1,3 +1,10 @@
+Ссылки на репозитории проекта:
+[Фронтенд](https://github.com/CAPVOK/Astrology_for_Astrologers_Front)
+[Бэкенд](https://github.com/CAPVOK/Astrology_for_Astrologers_Back)
+[Десктопное приложение](https://github.com/CAPVOK/Astrology_for_Astrologers_Desktop)
+[GitHub Pages](https://capvok.github.io/Astrology_for_Astrologers_Front/#/)
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
