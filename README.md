@@ -6,6 +6,7 @@
 2. [Бэкенд](https://github.com/CAPVOK/Astrology_for_Astrologers_Back)
 3. [Десктопное приложение](https://github.com/CAPVOK/Astrology_for_Astrologers_Desktop)
 4. [GitHub Pages](https://capvok.github.io/Astrology_for_Astrologers_Front/#/)
+5. [РПЗ](https://github.com/CAPVOK/Astrology_for_Astrologers_documentation)
 
 # Фронтенд
 ## Ветки
