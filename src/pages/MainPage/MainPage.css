@@ -114,6 +114,17 @@ input:active, input:hover, input:focus {
   border: 1px solid var(--accent);
 }
 
+.main_page-page_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-block: 50px;
+}
+.main_page-page_buttons p {
+  margin-block: auto;
+}
+
 .btn:first-child:active {
   box-shadow: none;
   border-color: var(--accent);

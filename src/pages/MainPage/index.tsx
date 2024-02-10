@@ -12,6 +12,7 @@ export const MainPage: FC = () => {
     planets,
     isAdmin,
     searchName,
+    currentPage,
     isPageActive,
     planetLoading,
     planetsTableProps,
@@ -19,6 +20,8 @@ export const MainPage: FC = () => {
     handleGetAllPlanetsClick,
     handleSearchNameChange,
     handleAddPlanetCLick,
+    handleNextPageClick,
+    handlePrevPageClick,
     handleCreateClick,
   } = useMainPage();
 
@@ -76,6 +79,11 @@ export const MainPage: FC = () => {
           Искать
         </Button>
       </Container>
+      <div className="main_page-page_buttons">
+        <MyButton label="Назад" handler={handlePrevPageClick} />
+        <p>{currentPage}</p>
+        <MyButton label="Вперед" handler={handleNextPageClick} />
+      </div>
       {isAdmin && (
         <>
           <PlanetsTable {...planetsTableProps} />

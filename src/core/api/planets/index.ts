@@ -47,11 +47,12 @@ planetApi.interceptors.response.use(
 );
 
 export const getPlanets = async (
-  searchName?: string
+  page: number,
+  searchName?: string,
 ): Promise<IGetPlanetsResponse | undefined> => {
   try {
     const response = await planetApi.get<IGetPlanetsResponse>("/", {
-      params: searchName ? { searchName: searchName } : undefined,
+      params: { searchName: searchName || "", page: page },
     });
     console.log("core getPlanets", response.data);
     store.dispatch(saveConstellationId(response.data.constellationID));

@@ -23,6 +23,7 @@ export const useMainPage = () => {
   const [planetLoading, setPlanetLoading] = useState(-1);
   const [buttonLoadingId, setButtonLoadingId] = useState(-1);
   const [isButtonTypeDelete, setIsButtonTypeDelete] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ export const useMainPage = () => {
     const loadingTimer = setTimeout(() => {
       setIsPageLoading(true);
     }, TIMER);
-    getPlanets(searchName)
+    getPlanets(currentPage, searchName)
       .then((data) => {
         if (data) {
           setPlanets(data.planets);
@@ -55,7 +56,7 @@ export const useMainPage = () => {
     const loadingTimer = setTimeout(() => {
       setIsPageLoading(true);
     }, TIMER);
-    getPlanets()
+    getPlanets(currentPage)
       .then((data) => {
         if (data) {
           setPlanets(data.planets);
@@ -100,6 +101,11 @@ export const useMainPage = () => {
     getPlanetsHandler();
   };
 
+  useEffect(() => {
+    getPlanetsHandler();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
+
   function scrollToPlanet() {
     if (location.state?.planetId) {
       const planetElement = document.getElementById(location.state?.planetId);
@@ -116,6 +122,7 @@ export const useMainPage = () => {
 
   const handleSearchNameChange = (e: ChangeEvent) => {
     dispatch(saveSearchName(e.target.value));
+    setCurrentPage(1);
   };
 
   const handlePlanetDeleted = (id: number) => {
@@ -135,8 +142,17 @@ export const useMainPage = () => {
       });
   };
 
+  const handleNextPageClick = () => {
+    setCurrentPage(currentPage + 1);
+  }
+  const handlePrevPageClick = () => {
+    if (currentPage === 1) return;
+    setCurrentPage(currentPage - 1);
+  }
+
   useEffect(() => {
     getPlanetsHandler();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -162,6 +178,7 @@ export const useMainPage = () => {
     planets,
     isAdmin,
     searchName,
+    currentPage,
     isPageActive,
     planetLoading,
     planetsTableProps,
@@ -169,6 +186,8 @@ export const useMainPage = () => {
     handleGetAllPlanetsClick,
     handleSearchNameChange,
     handleAddPlanetCLick,
+    handleNextPageClick,
+    handlePrevPageClick,
     handleCreateClick,
   };
 };
