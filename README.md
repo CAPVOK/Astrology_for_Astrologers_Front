@@ -1,34 +1,33 @@
-Ссылки на репозитории проекта:
+# Астрономия для астрологов
+Проект создан в рамках курса "Разработка интернет-приложений" и включает в себя фронтенд, бэкенд, десктопное приложение и РПЗ. Веб-приложение выполнено в формате "Услуги/заявки", где услуги представлены планетами, а заявки — астрологическими созвездиями. Подробнее о проекте можно узнать в РПЗ.
+
+### Ссылки на репозитории проекта:
 1. [Фронтенд](https://github.com/CAPVOK/Astrology_for_Astrologers_Front)
 2. [Бэкенд](https://github.com/CAPVOK/Astrology_for_Astrologers_Back)
 3. [Десктопное приложение](https://github.com/CAPVOK/Astrology_for_Astrologers_Desktop)
 4. [GitHub Pages](https://capvok.github.io/Astrology_for_Astrologers_Front/#/)
 
+# Фронтенд
+## Ветки
+- SPA: копия SSR версии приложения, развернутая на страницах с моковыми данными - ссылка
+- WEB: полный интерфейс пользователя с авторизацией, заявками и т.д.
+- Moderator: добавлен интерфейс модератора
+- ContentPaging: версия для большого количества услуг в базе данных
 
-# React + TypeScript + Vite
+## Инструкция по запуску:
+- Клонируйте репозиторий: git clone https://github.com/CAPVOK/Astrology_for_Astrologers_Front.git
+- Перейдите в директорию проекта: cd Astrology_for_Astrologers_Front
+- Установите зависимости: npm install
+- Запустите приложение: npm start
+После выполнения этих шагов приложение будет доступно по адресу http://localhost:5173.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Стек технологий:
+- TypeScript
+- React
+- Redux Toolkit
+- React Router DOM
+- Fetch
+- Axios
+- Bootstrap
+- Vite
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
